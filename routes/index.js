@@ -3,6 +3,14 @@
  * GET home page.
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+/* Application configuration */
+var config = {
+  title:       'TweetYourMEP',
+  description: '',
+  author:      'SOD Collaborative hacking'
 };
+
+exports.index = function(req, res){
+  res.render('index', config);
+};
+

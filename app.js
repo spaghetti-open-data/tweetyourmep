@@ -30,21 +30,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-//app.get('/', routes.index);
+app.get('/', routes.index);
 // disabled at this stage
 //app.get('/users', user.list);
 
-/* Application configuration */
-var locals = {
-  title:       'TweetYourMEP',
-  description: '',
-  author:      'SOD Collaborative hacking'
-};
-
-app.get('/', function(req,res) {
-    locals.date = new Date().toLocaleDateString();
-    res.render('index.ejs', locals);
-});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
