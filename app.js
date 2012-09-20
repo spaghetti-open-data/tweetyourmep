@@ -4,8 +4,8 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
+  , controllers = require("./controllers")
+  , user = require('./controllers/user')
   , http = require('http')
   , path = require('path');
 
@@ -30,21 +30,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-//app.get('/', routes.index);
+app.get('/', controllers.mainController().indexAction);
+app.get('/about', controllers.mainController().aboutAction);
+
 // disabled at this stage
 //app.get('/users', user.list);
 
-/* Application configuration */
-var locals = {
-  title:       'TweetYourMEP',
-  description: '',
-  author:      'SOD Collaborative hacking'
-};
-
-app.get('/', function(req,res) {
-    locals.date = new Date().toLocaleDateString();
-    res.render('index.ejs', locals);
-});
 
 app.get('/about', function(req,res) {
     locals.date = new Date().toLocaleDateString();
