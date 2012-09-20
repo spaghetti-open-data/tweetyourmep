@@ -37,6 +37,11 @@ app.get('/about', controllers.mainController().aboutAction);
 //app.get('/users', user.list);
 
 
+app.get('/about', function(req,res) {
+    locals.date = new Date().toLocaleDateString();
+    res.render('about.ejs', locals);
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
