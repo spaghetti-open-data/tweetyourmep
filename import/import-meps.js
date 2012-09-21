@@ -6,8 +6,8 @@
  * 2) creazione dello schema 'meps'
  * 	TODO: ha senso aggiungere la creazione via script?
  * 
- * *) per la gestione/visualizzaizone di mongdb si può installare RockMongo
- * 
+ * 3) per la gestione/visualizzazione di mongdb si può installare RockMongo
+ * 4) per eseguire lo script (ad esempio via crontab): >> node import-meps.js
  * 
  */
 
