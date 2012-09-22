@@ -13,6 +13,8 @@ var express = require('express')
 // bootstrap the app!
 var app = express();
 var model = require('./models/mep.js');
+var config = require('./config.js');
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
