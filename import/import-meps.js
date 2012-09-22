@@ -12,25 +12,31 @@
  */
 
 var request = require('request');
-
 var mongoose = require('mongoose')
+var fs = require('fs')
 mongoose.set('debug', true)
+var mepCounter = 0;
+
 
 // TODO: iniziamo da qui, poi possiamo usare entrambi gli endpoint delle api
 // TODO: va verificata l'univocità del record da inserire (eventualmente
 // fatto update)
 // TODO: gestire la paginazione: per ora ci sono valori fissi di comodo
-var url_api = 'http://www.epnewshub.eu/feederfrontendapi/contributors/1?limit=800&offset=0'
+var url_api = 'http://www.epnewshub.eu/feederfrontendapi/contributors/1?limit=8000&offset=0'
 	
-
 var db = mongoose.createConnection('localhost', 'meps');
 
 // error handling
 db.on('error', console.error.bind(console, 'connection error:'));
 
+// close connection
+db.on('close', function() {
+	console.log('Thanks! You have correctly import/update ' + mepCounter + ' users.');
+	process.exit(1);
+});
+
 // on opening connection
-db.once('open', function() {
-	
+db.once('open', function() {	
 	console.log("open connection on\n%s\n", url_api)
 
 	// creiamo lo schema
@@ -54,71 +60,71 @@ db.once('open', function() {
 	}, {
 		autoIndex : true
 	});
-	
-	
-	// creiamo il modello dati
-	var MEP = db.model('MEPS', mepSchema);
-	MEP.ensureIndexes(function(e) { /* TODO: serve? */	});
 		
+		
+	// creiamo il modello dati
+	var MepModel = db.model('MEPS-paolo', mepSchema);
+	//MEP.ensureIndexes(function(e) { /* TODO: serve? */	}); // @todo check this
+		
+	// get the stream and make a cache file, in order to be used by application (offline mode)
 	request(url_api, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
-			importMEPs(JSON.parse(body))
+			dispatch(JSON.parse(body))
 		}
-	});
+	}).pipe(fs.createWriteStream('./cache/mep-cache-dump-' + new Date().getTime()));
 	
-	//TODO: creazione di una qualche cache su filsystem?
-	//.pipe(fs.createWriteStream('meps_list.cache.json'));
-		
-		
-	function importMEPs(mepsList){
-		
-		console.log("LOADED %s meps\n", mepsList.length);
-		
-		for ( var i = 0; i < mepsList.length; i=i+1) {
-
-			var mep = new MEP(mepsList[i]);
-
-			// save (con duplicazione!)
-			mep.save();
-			
-			/*
-			vogliamo verificare l'unicità prima dell'inserimento?
-			MEP.find(
-					{mep_lastName : mepsList[i].mep_lastName, mep_firstName : mepsList[i].mep_firstName}, 
-					function(err, users) {
-				
-				if(err)	{
-					console.log("ERROR FINDING\t %s %s", mep.mep_lastName, mep_firstName);
-				} else	{
-					// if we find a MEP we update it, otherwise we simply add it (save)
-					if(users[0]!=undefined){
-						console.log("\tUPDATING %s %s", mep.mep_lastName, mep.mep_firstName);
-						mep.update();
-					}else {
-						console.log("\tADDING %s %s", mep.mep_lastName, mep.mep_firstName);
-					}
-				}
-				
-				// SAVE the current record...
-				mep.save();
-//				mep.save(function(err) {
-//					console.log("\tERROR SAVING %s %s", mep.mep_lastName, mep.mep_firstName);
-//					mep.remove();
-//				});
-				
-			});
-			*/
-
-		}
-		
+	// save/update handler
+	function saveUpdate(remote_mep) {
+	  // udpate save the user
+		MepModel.findOne({mep_userId: remote_mep.mep_userId}, function(err, user) {
+		  if (err) { 
+		  	console.error('Find users problems, please check mongodb connection.');
+		  	process.exit(0);
+		  }
+		  // new user
+		  if (!user) {
+		  	MepSchema = new MepModel(remote_mep);
+		  	MepSchema.save(function(err) {
+		  		if (err) {
+			  		console.error('Saving user problem.');
+		  			process.exit(0);
+			  	}
+			  	console.log('User "' + remote_mep.mep_firstName + ' ' + remote_mep.mep_lastName  + '" created');
+		  	});
+		  }
+			// existing user
+		  else {
+		  	for (attr in remote_mep) {
+		  		if (attr != 'mep_userId') {
+		  		  user.attr = remote_mep[attr];
+		  		}
+		  	}
+			  user.save(function(err) {
+			  	if (err) {
+			  		console.error('Saving user problem.');
+		  			process.exit(0);
+			  	}
+			  	console.log('User "' + user.mep_firstName + ' ' + user.mep_lastName  + '" updated');
+			  });
+	  	}
+		});
 	}
-	
-	
+
+	// json dispatching
+	function dispatch(mepsList){
+		mepCounter = mepsList.length;
+		var len = mepsList.length;
+
+		for (var i=0; i<len; ++i) {
+			var remote_mep = mepsList[i];
+			saveUpdate(remote_mep);
+		}
+		// close connection as described here: https://github.com/LearnBoost/mongoose/issues/330#issuecomment-1061042
+		setTimeout( function () {
+ 		 mongoose.disconnect();
+		}, 1000);
+	}
+
 });
 
-// TODO: come chiudere la connessione in modalità asincrona qui? :-)
-//db.once('close', function() {
-//	db.close();
-//	// per la chiusura della app node.js:
-//	//process.exit(code = 0);
-//});
+
