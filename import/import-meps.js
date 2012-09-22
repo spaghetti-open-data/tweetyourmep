@@ -66,6 +66,11 @@ db.once('open', function() {
 	var MepModel = db.model('MEPS-paolo', mepSchema);
 	//MEP.ensureIndexes(function(e) { /* TODO: serve? */	}); // @todo check this
 		
+	// create cache dir 
+	if (!fs.existsSync('./cache')) {
+		fs.mkdirSync('./cache');
+	}
+
 	// get the stream and make a cache file, in order to be used by application (offline mode)
 	request(url_api, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
