@@ -7,8 +7,10 @@ var express = require('express')
   , controllers = require("./controllers")
   , user = require('./controllers/user')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , mongoose = require('mongoose');
 
+// bootstrap the app!
 var app = express();
 
 app.configure(function(){
@@ -32,15 +34,14 @@ app.configure('development', function(){
 
 app.get('/', controllers.mainController().indexAction);
 app.get('/about', controllers.mainController().aboutAction);
+//app.get('/importer', controllers.mainController().importerAction);
+var model = require('./models/mep.js');
+model.save();
+//console.log(model);
+
 
 // disabled at this stage
 //app.get('/users', user.list);
-
-
-app.get('/about', function(req,res) {
-    locals.date = new Date().toLocaleDateString();
-    res.render('about.ejs', locals);
-});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

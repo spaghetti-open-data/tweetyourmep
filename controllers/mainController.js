@@ -13,6 +13,9 @@ module.exports = function() {
     },
     aboutAction: function (req, res) {
       res.render('about', config);
+    },
+    importerAction: function (req, res) {
+      //res.render('importer', config);
     }
   };
   return self;
