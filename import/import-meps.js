@@ -14,7 +14,7 @@
 var request = require('request');
 var mongoose = require('mongoose')
 var fs = require('fs')
-mongoose.set('debug', true)
+mongoose.set('debug', config.db_debug)
 var mepCounter = 0;
 
 // app configuration
@@ -26,7 +26,7 @@ var config = require('../config.js');
 // TODO: gestire la paginazione: per ora ci sono valori fissi di comodo
 var url_api = config.api_url;
 	
-var db = mongoose.createConnection(config.db_host, config.db_host);
+var db = mongoose.createConnection(config.db_host, config.db_name);
 
 // error handling
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -65,7 +65,7 @@ db.once('open', function() {
 		
 		
 	// creiamo il modello dati
-	var MepModel = db.model(config.db_name, mepSchema);
+	var MepModel = db.model(config.db_collection, mepSchema);
 	//MEP.ensureIndexes(function(e) { /* TODO: serve? */	}); // @todo check this
 		
 	// create cache dir 
