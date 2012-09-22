@@ -12,6 +12,7 @@ var express = require('express')
 
 // bootstrap the app!
 var app = express();
+var model = require('./models/mep.js');
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -34,11 +35,6 @@ app.configure('development', function(){
 
 app.get('/', controllers.mainController().indexAction);
 app.get('/about', controllers.mainController().aboutAction);
-//app.get('/importer', controllers.mainController().importerAction);
-var model = require('./models/mep.js');
-model.save();
-//console.log(model);
-
 
 // disabled at this stage
 //app.get('/users', user.list);

@@ -21,27 +21,32 @@ var mepModel = function() {
   var schema = mongoose.Schema;
 
   // Define Mep model
-  var mepSchema = new schema({
-    mail:  String,
-    photo: String,
-    page:   String,
-    fb_id: String,
-    fb_url: String,
-    name: String,
-    lastname: String,
-    party: String,
-    url: String,
-    twitter: String,
-    uid: Number,
-    properties: String  
+  var mepSchema = new mongoose.Schema({
+    mep_country : String,
+    mep_emailAddress : String,
+    mep_epFotoUrl : String,
+    mep_epPageUrl : String,
+    mep_facebookId : String,
+    mep_facebookPageUrl : String,
+    mep_faction : String,
+    mep_firstName : String,
+    mep_lastName : String,
+    mep_localParty : String,
+    mep_personalWebsite : String,
+    mep_twitterUrl : String,
+    mep_userId : String,
+    mep_additionalProperties : String,
+    mep_itemCount : String
+  }, {
+    autoIndex : true
   });
 
   var db = mongoose.createConnection('localhost', 'mep');
   var mepModel = db.model('Mep', mepSchema);
 
   this.save = function(data) {
+    // just a stub function
     var Mep = new mepModel();
-    console.log(Mep);
     Mep.save(function (err) {
       if (err) throw err;
       console.log('User saved, thanks');
