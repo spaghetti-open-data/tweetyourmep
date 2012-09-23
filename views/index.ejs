@@ -130,14 +130,14 @@
               <% } %>
                     <li class="span4">
                      <div class="thumbnail">
-                     <div style="height:215px">
-                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left" />
+                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left; padding-right:5px; height:215px; width:170px;" />
+                     <div style="float:left; width:90px; max-height:215px;"
                        <dl>
                          <dt>Country</dt> <dd><%= meps[i].mep_country %></dd>
                          <dt>Faction</dt> <dd><%= meps[i].mep_faction %></dd>
                          <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
                        </dl></div>
-                      <div class="caption">
+                      <div class="caption" style="clear:both;">
                          <h4>
                             <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>
                             <p>
