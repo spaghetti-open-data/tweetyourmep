@@ -69,19 +69,10 @@
 	<div class="span3">
 		<div class="well sidebar-nav">
 		<ul class="nav nav-list">
- 	                <li class="nav-header">Sidebar</li>
-			<li><div class="btn-group">
-  			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Action
-			<span class="caret"></span>
-			</a>
-  			<ul class="dropdown-menu">
-    			<li><a tabindex="-1" href="#">Azione</a></li>
-			<li><a tabindex="-1" href="#">Altra azione</a></li>
-			<li class="divider"></li>
-			<li><a tabindex="-1" href="#">Esempio azione divisa</a></li>
-  			</ul>
-			</div></li>
-
+ 	                <li class="nav-header">Search Your MEP</li>
+                        <li><form class="form-search">
+                            <input type="text" class="input-medium search-query">
+                            <button type="submit" class="btn">Search</button></li>
                 </ul>
 		</div>	
 	</div> <!--/sidebar -->
@@ -94,10 +85,16 @@
                <div class="row-fluid"> 
                  <ul class="thumbnails">
               <% } %>
-                    <li class="span3">
+                    <li class="span4">
                      <div class="thumbnail">
-                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded">
-                       <div class="caption">
+                     <div style="height:215px">
+                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left" />
+                       <dl>
+                         <dt>Country</dt> <dd><%= meps[i].mep_country %></dd>
+                         <dt>Faction</dt> <dd><%= meps[i].mep_faction %></dd>
+                         <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
+                       </dl></div>
+                      <div class="caption">
                          <h4>
                             <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>
                             <p>
@@ -106,14 +103,15 @@
                             </p>
                          </h4>
                      </div>
+
                      <p>
                        <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary">
-                      Twit
+                      Tweet
                        </a> 
                       <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
                      </p>
                     </div><!--/span-->
-              <% if (counter == 3) { %>
+              <% if (counter == 2) { %>
                    </ul>
                  </div> 
                  <% counter = 0 %>
