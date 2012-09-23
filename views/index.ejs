@@ -106,9 +106,16 @@
                             </p>
                          </h4>
                      </div>
+
+                     <p>
+                         Country: <strong><%= meps[i].mep_country %></strong><br />
+                         Faction: <strong><%= meps[i].mep_faction %></strong><br />
+                         Local Party: <strong><%= meps[i].mep_localParty %></strong><br />
+                     </p>
+
                      <p>
                        <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary">
-                      Twit
+                      Tweet
                        </a> 
                       <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
                      </p>
