@@ -29,6 +29,17 @@ var config = {
     mep_twitterUserName: String,
   }, {
     autoIndex : true
-  })
+  }),
+  countries: {"AT":"Austria","BE":"Belgium","BG":"Bulgaria","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","EE":"Estonia","FI":"Finland","FR":"France","DE":"Germany","GR":"Greece","HU":"Hungary","IE":"Ireland","IT":"Italy","LV":"Latvia","LT":"Lithuania","LU":"Luxembourg","MT":"Malta","NL":"Netherlands","PL":"Poland","PT":"Portugal","RO":"Romania","SK":"Slovakia","SI":"Slovenia","ES":"Spain","SE":"Sweden","GB":"United Kingdom"},
+  factionNames: {
+          LD: "Group of the Alliance of Liberals and Democrats for Europe",
+          CR: "European Conservatives and Reformists Group",
+          FD: "Europe of Freedom and Democracy Group",
+          PP: "Group of the European People's Party (Christian Democrats)",
+          UL: "Confederal Group of the European United Left - Nordic Green Left",
+          GF: "Group of the Greens/European Free Alliance",
+          NA: "Non-attached Members",
+          SD: "Group of the Progressive Alliance of Socialists and Democrats in the European Parliament"
+  },
 }
 module.exports = config;
