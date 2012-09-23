@@ -40,10 +40,10 @@ var mepModel = function() {
     var sort_type = options.sort_type;
     
     var q = Mongo.find({mep_twitterUrl: {$ne : ""}})
-    .limit(options.limit)
-    .sort({
-      sort_attrib: sort_type,
-    });
+            .limit(options.limit)
+            .sort({
+              sort_attrib: sort_type,
+            });
 
     q.execFind(function(err, mep) {
       if (err) {
