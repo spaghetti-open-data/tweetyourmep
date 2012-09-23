@@ -13,6 +13,7 @@ module.exports = function() {
         'sort_attrib': 'mep_firstName',
         'sort_type': 'asc'
       };
+      // @todo check if we can stream the data after the page render, here we hang the page loading!
       meps = model.getMeps(options, function(meps) {
         res.render('index', { config: config, meps: meps});
       });
