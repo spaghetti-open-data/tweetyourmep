@@ -80,7 +80,7 @@
                 <!-- Search input-->
                 <label class="control-label">Name</label>
                 <div class="controls">
-                  <input type="text" name="mep_name" placeholder="MEP Name" class="input-xlarge search-query">
+                  <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query">
                   <p class="help-block"></p>
                 </div>
               </div>
@@ -88,9 +88,8 @@
                 <!-- Select Basic -->
                 <label class="control-label">Country</label>
                 <div class="controls">
-                  <select class="input-xlarge" name="mep_country">
-                    <option></option>
-                    <option value="it">Italy</option>
+                  <select class="input-medium" name="mep_country">
+                    <option>Italy</option>
                     <option>France</option>
                     <option>Germany</option>
                   </select>
@@ -100,8 +99,7 @@
                 <!-- Select Basic -->
                 <label class="control-label">Party</label>
                 <div class="controls">
-                  <select class="input-xlarge" name="mep_party">
-                    <option></option>
+                  <select class="input-medium" name="mep_party">
                     <option>PP</option>
                     <option>CC</option>
                     <option>DD</option>
@@ -112,7 +110,7 @@
                   <label class="control-label"></label>
                   <!-- Button -->
                   <div class="controls">
-                    <button class="btn btn-success">Search</button>
+                    <button class="btn">Search</button>
                   </div>
                 </div>
             </fieldset>
@@ -132,14 +130,14 @@
               <% } %>
                     <li class="span4">
                      <div class="thumbnail">
-                     <div style="height:215px">
-                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left" />
+                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left; padding-right:5px; height:215px; width:170px;" />
+                     <div style="float:left; width:90px; max-height:215px;"
                        <dl>
                          <dt>Country</dt> <dd><%= meps[i].mep_country %></dd>
                          <dt>Faction</dt> <dd><%= meps[i].mep_faction %></dd>
                          <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
                        </dl></div>
-                      <div class="caption">
+                      <div class="caption" style="clear:both;">
                          <h4>
                             <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>
                             <p>
