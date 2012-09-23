@@ -8,6 +8,10 @@
   "dependencies": {
     "express": "3.0.0rc4",
     "ejs": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "mongojs": "*",
+    "mongoose": "*",
+    "request": "*",
+    "phpjs": "*"
   }
 }
