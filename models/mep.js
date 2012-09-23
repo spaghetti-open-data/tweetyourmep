@@ -18,41 +18,53 @@
 
 var mepModel = function() {
   var mongoose = require('mongoose');
+  var config = require('../config.js');
   var schema = mongoose.Schema;
 
   // Define Mep model
-  var mepSchema = new mongoose.Schema({
-    mep_country : String,
-    mep_emailAddress : String,
-    mep_epFotoUrl : String,
-    mep_epPageUrl : String,
-    mep_facebookId : String,
-    mep_facebookPageUrl : String,
-    mep_faction : String,
-    mep_firstName : String,
-    mep_lastName : String,
-    mep_localParty : String,
-    mep_personalWebsite : String,
-    mep_twitterUrl : String,
-    mep_userId : String,
-    mep_additionalProperties : String,
-    mep_itemCount : String
-  }, {
-    autoIndex : true
-  });
+  var mepSchema = config.schema;
 
-  var db = mongoose.createConnection('localhost', 'mep');
-  var mepModel = db.model('Mep', mepSchema);
+  this.getModel = function() {
+    // @todo handle errors
+    var db = mongoose.createConnection(config.db_host, config.db_name);
+    var mepModel = db.model(config.db_collection, mepSchema);
+    return mepModel;
+  }
+
+  // fetch mep records
+  this.getMeps = function(options, callback) {
+    var Mongo = this.getModel();
+
+    // sort
+    var sort_attrib = options.sort_attrib;
+    var sort_type = options.sort_type;
+    
+    var q = Mongo.find({mep_twitterUrl: {$ne : ""}})
+    .limit(options.limit)
+    .sort({
+      sort_attrib: sort_type,
+    });
+
+    q.execFind(function(err, mep) {
+      if (err) {
+        //@todo we urgently need a robust error handlers
+        console.err('Fatal error, try again.').
+        process.exit(0);
+      }
+      callback(mep);
+    });
+  }
 
   this.save = function(data) {
     // just a stub function
-    var Mep = new mepModel();
+    /*var Mep = this.getModel();
     Mep.save(function (err) {
       if (err) throw err;
       console.log('User saved, thanks');
     });
+    */  
   };
- 
+  
   this.findByCountry = function(iso2) {};
 
   this.findByName = function(name) {};

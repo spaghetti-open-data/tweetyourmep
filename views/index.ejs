@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title><%= config.app_title %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -16,6 +16,9 @@
       }
       .sidebar-nav {
         padding: 9px 0;
+      }
+      a.twitter {
+        color: #0094C2;
       }
     </style>
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -44,7 +47,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/"><%= title %></a>
+          <a class="brand" href="/"><%= config.app_title %></a>
           <div class="nav-collapse collapse">
             <!--
             <p class="navbar-text pull-right">
@@ -83,42 +86,41 @@
 		</div>	
 	</div> <!--/sidebar -->
 
-        <div class="span9">
-          <div class="row-fluid">
-            <div class="span3">
-			<h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span3">
-              <h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span3">
-              <h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
-
-          <div class="row-fluid">
-            <div class="span3">
-              <h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span3">
-              <h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span3">
-              <h2>Parlamentare</h2>
-              <p>Dati sparsi sul parlamentare: che ruolo ricopre, cosa fa, magari dati sempre estrapolati dal dataset </p>
-              <p><a class="btn" href="#">Tweet  &raquo;</a></p>
-            </div><!--/span-->
-
+        <div class="span9">          
+            <!-- loop through meps -->
+            <% counter = 0 %>
+            <% for(var i = 1; i < meps.length; i++) { %>
+              <% if (counter == 0) { %>
+               <div class="row-fluid"> 
+                 <ul class="thumbnails">
+              <% } %>
+                    <li class="span3">
+                     <div class="thumbnail">
+                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded">
+                       <div class="caption">
+                         <h4>
+                            <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>
+                            <p>
+                              <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png" />
+                              <small><a class="twitter" href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>"> <%= meps[i].mep_twitterUserName %>  </a></small>
+                            </p>
+                         </h4>
+                     </div>
+                     <p>
+                       <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary">
+                      Twit
+                       </a> 
+                      <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
+                     </p>
+                    </div><!--/span-->
+              <% if (counter == 3) { %>
+                   </ul>
+                 </div> 
+                 <% counter = 0 %>
+              <% } else  { %>
+                <% counter++; %>
+              <% } %>
+            <% } %>
           </div><!--/row-->
         </div><!--/span-->
       </div><!--/row-->
@@ -136,6 +138,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
    <script src="http://code.jquery.com/jquery-latest.js"></script>
    <script src="bootstrap/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
   </body>
 </html>

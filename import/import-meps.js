@@ -11,14 +11,16 @@
  * 
  */
 
+// app configuration
+var config = require('../config.js');
 var request = require('request');
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
+var php = require('phpjs');
 var fs = require('fs')
+
 mongoose.set('debug', config.db_debug)
 var mepCounter = 0;
 
-// app configuration
-var config = require('../config.js');
 
 // TODO: iniziamo da qui, poi possiamo usare entrambi gli endpoint delle api
 // TODO: va verificata l'univocità del record da inserire (eventualmente
@@ -42,27 +44,7 @@ db.once('open', function() {
   console.log("open connection on\n%s\n", url_api)
 
   // creiamo lo schema
-  // TODO: rifattorizzare in maniera strutturata?
-  var mepSchema = new mongoose.Schema({
-    mep_country : String,
-    mep_emailAddress : String,
-    mep_epFotoUrl : String,
-    mep_epPageUrl : String,
-    mep_facebookId : String,
-    mep_facebookPageUrl : String,
-    mep_faction : String,
-    mep_firstName : String,
-    mep_lastName : String,
-    mep_localParty : String,
-    mep_personalWebsite : String,
-    mep_twitterUrl : String,
-    mep_userId : String,
-    mep_additionalProperties : String,
-    mep_itemCount : String
-  }, {
-    autoIndex : true
-  });
-    
+  var mepSchema = config.schema
     
   // creiamo il modello dati
   var MepModel = db.model(config.db_collection, mepSchema);
@@ -80,6 +62,26 @@ db.once('open', function() {
     }
   }).pipe(fs.createWriteStream('./cache/mep-cache-dump-' + new Date().getTime()));
   
+  // add additional data, save to mongo
+  function doSave(mep) {
+    for (attr in mep) {
+      if (attr === 'mep_twitterUrl') {
+        var tw_url = mep[attr];
+        if (tw_url) {
+          var username = php.array_pop(php.explode('/', tw_url));
+          mep.mep_twitterUserName = username;
+        }
+      }
+    }
+    mep.save(function(err, type) {
+      if (err) {
+        console.error('Saving user problem.');
+        process.exit(0);
+      }
+      console.log('User "' + mep.mep_firstName + ' ' + mep.mep_lastName  + '" ' + type);
+    });
+  }
+
   // save/update handler
   function saveUpdate(remote_mep) {
     // udpate save the user
@@ -91,13 +93,7 @@ db.once('open', function() {
       // new user
       if (!user) {
         MepSchema = new MepModel(remote_mep);
-        MepSchema.save(function(err) {
-          if (err) {
-            console.error('Saving user problem.');
-            process.exit(0);
-          }
-          console.log('User "' + remote_mep.mep_firstName + ' ' + remote_mep.mep_lastName  + '" created');
-        });
+        doSave(MepSchema, 'save');
       }
       // existing user
       else {
@@ -106,13 +102,7 @@ db.once('open', function() {
             user.attr = remote_mep[attr];
           }
         }
-        user.save(function(err) {
-          if (err) {
-            console.error('Saving user problem.');
-            process.exit(0);
-          }
-          console.log('User "' + user.mep_firstName + ' ' + user.mep_lastName  + '" updated');
-        });
+        doSave(user, 'update');
       }
     });
   }

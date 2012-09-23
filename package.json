@@ -11,6 +11,7 @@
     "stylus": "*",
     "mongojs": "*",
     "mongoose": "*",
-    "request": "*"
+    "request": "*",
+    "phpjs": "*"
   }
 }
