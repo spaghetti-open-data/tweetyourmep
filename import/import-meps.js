@@ -15,7 +15,7 @@
 var config = require('../config.js');
 var request = require('request');
 var mongoose = require('mongoose');
-var php = require('phpjs');
+//var php = require('phpjs');
 var fs = require('fs')
 
 mongoose.set('debug', config.db_debug)
@@ -73,7 +73,8 @@ db.once('open', function() {
       if (attr === 'mep_twitterUrl') {
         var tw_url = mep[attr];
         if (tw_url) {
-          var username = php.array_pop(php.explode('/', tw_url));
+          //var username = php.array_pop(php.explode('/', tw_url));
+	  var username = tw_url.split('/').pop();
           mep.mep_twitterUserName = username;
         }
       }
