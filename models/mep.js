@@ -81,7 +81,7 @@ var mepModel = function() {
   };
 
   this.findByName = function(name, callback) {
-    var op = {mep_fullName:  { $regex: name, $options: 'i' }};
+    var op = {mep_fullName:  { $regex: name, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
     this.search(op, callback);
   };
 
