@@ -35,16 +35,27 @@ var mepModel = function() {
   this.getMeps = function(options, callback) {
     var Mongo = this.getModel();
 
-    // sort
-    var sort_attrib = options.sort_attrib;
-    var sort_type = options.sort_type;
-    
+    // sort (http://stackoverflow.com/questions/11043026/variable-as-the-property-name-in-a-javascript-object-literal)
+    var sort = {};
+    sort[options.sort_attrib] = options.sort_type;
+
     var q = Mongo.find({mep_twitterUrl: {$ne : ""}})
             .limit(options.limit)
-            .sort({
-              sort_attrib: sort_type,
-            });
+            .sort(sort);
 
+    q.execFind(function(err, mep) {
+      if (err) {
+        //@todo we urgently need a robust error handlers
+        console.err('Fatal error, try again.').
+        process.exit(0);
+      }
+      callback(mep);
+    });
+  }
+
+  this.search = function(op, callback) {
+    var Mongo = this.getModel();
+    var q = Mongo.find(op);
     q.execFind(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
@@ -65,9 +76,14 @@ var mepModel = function() {
     */  
   };
   
-  this.findByCountry = function(iso2) {};
+  this.findByCountry = function(iso2) {
 
-  this.findByName = function(name) {};
+  };
+
+  this.findByName = function(name, callback) {
+    var op = {mep_fullName:  { $regex: name, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
+    this.search(op, callback);
+  };
 
   this.findByParty = function (party) {};
 }
