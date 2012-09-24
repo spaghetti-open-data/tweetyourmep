@@ -77,7 +77,8 @@ var mepModel = function() {
   };
   
   this.findByCountry = function(iso2) {
-
+    var op = {mep_country:  { $regex: iso2, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
+    this.search(op, callback);
   };
 
   this.findByName = function(name, callback) {
@@ -85,7 +86,10 @@ var mepModel = function() {
     this.search(op, callback);
   };
 
-  this.findByParty = function (party) {};
+  this.findByParty = function (party) {
+    var op = {mep_localParty:  { $regex: party, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
+    this.search(op, callback);  
+  };
 }
 
 module.exports = new mepModel();
