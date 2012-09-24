@@ -22,6 +22,11 @@ mongoose.set('debug', config.db_debug)
 var mepCounter = 0;
 
 
+// hack per fs
+fs.exists = fs.exists || require('path').exists;
+fs.existsSync = fs.existsSync || require('path').existsSync;
+
+
 // TODO: iniziamo da qui, poi possiamo usare entrambi gli endpoint delle api
 // TODO: va verificata l'univocità del record da inserire (eventualmente
 // fatto update)
