@@ -1,185 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title><%= config.app_title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title><%= config.app_title %></title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-      a.twitter {
-        color: #0094C2;
-      }
-    </style>
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <!-- Le styles -->
+      <link href="bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
+      <style type="text/css">
+        body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+        .sidebar-nav {
+          padding: 9px 0;
+        }
+        a.twitter {
+          color: #0094C2;
+        }
+      </style>
+      <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+      <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+      <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
 
-    <!-- Le fav and touch icons 
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-    -->
-  </head>
+      <!-- Le fav and touch icons 
+      <link rel="shortcut icon" href="../assets/ico/favicon.ico">
+      <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+      -->
+    </head>
 
-  <body>
+    <body>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="/"><%= config.app_title %></a>
-          <div class="nav-collapse collapse">
-            <!--
-            <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link">Username</a>
-            </p>
-            -->
-            <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <!-- <li><a href="#contact">Contact</a></li> -->
-            </ul>
-          </div><!--/.nav-collapse -->
+      <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/"><%= config.app_title %></a>
+            <div class="nav-collapse collapse">
+              <!--
+              <p class="navbar-text pull-right">
+                Logged in as <a href="#" class="navbar-link">Username</a>
+              </p>
+              -->
+              <ul class="nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <!-- <li><a href="#contact">Contact</a></li> -->
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
+      <div class="container-fluid">
+        <div class="row-fluid">
 
-  <div class="span3">
-    <div class="well sidebar-nav">
-      <ul class="nav nav-list">
-        <li>
-          <form class="form-vertical">
-            <fieldset>
-              <div id="legend" class="">
-                <legend class="">Search your MEP</legend>
-              </div>
-              <div class="control-group">
-                <!-- Search input-->
-                <label class="control-label">Name</label>
-                <div class="controls">
-                  <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query">
-                  <p class="help-block"></p>
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li>
+            <form class="form-vertical">
+              <fieldset>
+                <div id="legend" class="">
+                  <legend class="">Search your MEP</legend>
                 </div>
-              </div>
-              <div class="control-group">
-                <!-- Select Basic -->
-                <label class="control-label">Country</label>
-                <div class="controls">
-                  <select class="input-medium" name="mep_country">
-                    <option>Italy</option>
-                    <option>France</option>
-                    <option>Germany</option>
-                  </select>
-                </div>
-              </div>
-              <div class="control-group">
-                <!-- Select Basic -->
-                <label class="control-label">Party</label>
-                <div class="controls">
-                  <select class="input-medium" name="mep_party">
-                    <option>PP</option>
-                    <option>CC</option>
-                    <option>DD</option>
-                  </select>
-                </div>
-              </div>
-              <div class="control-group">
-                  <label class="control-label"></label>
-                  <!-- Button -->
+                <div class="control-group">
+                  <!-- Search input-->
+                  <label class="control-label">Name</label>
                   <div class="controls">
-                    <button class="btn">Search</button>
+                    <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query" value="<%= (req.query.mep_name ? req.query.mep_name : '') %>">
+                    <p class="help-block"></p>
                   </div>
                 </div>
-            </fieldset>
-          </form>
-        </li>
-      </ul>
-    </div>  
-  </div> <!--/sidebar -->
+                <div class="control-group">
+                  <!-- Select Basic -->
+                  <label class="control-label">Country</label>
+                  <div class="controls">
+                    <select class="input-medium" name="mep_country">
+                      <option>Italy</option>
+                      <option>France</option>
+                      <option>Germany</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <!-- Select Basic -->
+                  <label class="control-label">Party</label>
+                  <div class="controls">
+                    <select class="input-medium" name="mep_party">
+                      <option>PP</option>
+                      <option>CC</option>
+                      <option>DD</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"></label>
+                    <!-- Button -->
+                    <div class="controls">
+                      <button class="btn">Search</button>
+                    </div>
+                  </div>
+              </fieldset>
+            </form>
+          </li>
+        </ul>
+      </div>  
+    </div> <!--/sidebar -->
 
-        <div class="span9">          
-            <!-- loop through meps -->
-            <% counter = 0 %>
-            <% for(var i = 1; i < meps.length; i++) { %>
-              <% if (counter == 0) { %>
-               <div class="row-fluid"> 
-                 <ul class="thumbnails">
+          <div class="span9">  
+              <!-- loop through meps -->
+              <% counter = 0 %>
+              <% for(var i = 0; i < meps.length; i++) { %>
+                <% if (counter == 0) { %>
+                 <div class="row-fluid"> 
+                   <ul class="thumbnails">
+                <% } %>
+                      <li class="span3">
+                       <div class="thumbnail">
+                         <img style="min-height: 225px;" src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" />
+                        <!--
+                         <div style="float:left; width:90px; max-height:215px;"
+                            <dl>
+                              <dt>Country:</dt> <dd><%= meps[i].mep_country %></dd>
+                              <dt>Faction:</dt> <dd><%= meps[i].mep_faction %></dd>
+                              <dt>Local Party:</dt> <dd><%= meps[i].mep_localParty %></dd>
+                            </dl>
+                          </div>
+                        -->
+                        <div class="caption">
+                           <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
+                           <span class="mep-info">
+                              <i class="icon-globe"></i>
+                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
+                                <%= meps[i].mep_country %>
+                              </a>
+                            </span>
+
+                            <span class="divider">/</span>
+
+                            <span class="mep-info">
+                              <i class="icon-home"></i>
+                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
+                                <%= meps[i].mep_faction %>
+                              </a>
+                            </span>
+
+                            <span class="divider">/</span>
+                            <span class="mep-info">
+                              <i class="icon-zoom-in"></i>
+                              <a href="#" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
+                            </span>
+
+                            <p class="lead">
+                             <h5>
+                              <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_32.png" />
+                                  <a class="twitter" href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>"> <%= meps[i].mep_twitterUserName %> </a>
+                             </h5>
+                           </p>
+                       </div>
+                       <div class="pagination-centered">
+                         <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary ">Tweet</a> 
+                        <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
+                       </div>
+                      </div><!--/div-->
+                <% if (counter == 3) { %>
+                     </ul>
+                   </div> 
+                   <% counter = 0 %>
+                <% } else  { %>
+                  <% counter++; %>
+                <% } %>
               <% } %>
-                    <li class="span4">
-                     <div class="thumbnail">
-                       <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" style="float:left; padding-right:5px; height:215px; width:170px;" />
-                     <div style="float:left; width:90px; max-height:215px;"
-                       <dl>
-                         <dt>Country</dt> <dd><%= meps[i].mep_country %></dd>
-                         <dt>Faction</dt> <dd><%= meps[i].mep_faction %></dd>
-                         <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
-                       </dl></div>
-                      <div class="caption" style="clear:both;">
-                         <h4>
-                            <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>
-                            <p>
-                              <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png" />
-                              <small><a class="twitter" href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>"> <%= meps[i].mep_twitterUserName %>  </a></small>
-                            </p>
-                         </h4>
-                     </div>
+            </div><!--/row-->
+          </div><!--/span-->
+        </div><!--/row-->
 
-                     <p>
-                       <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary">
-                      Tweet
-                       </a> 
-                      <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
-                     </p>
-                    </div><!--/span-->
-              <% if (counter == 2) { %>
-                   </ul>
-                 </div> 
-                 <% counter = 0 %>
-              <% } else  { %>
-                <% counter++; %>
-              <% } %>
-            <% } %>
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
+        <hr>
 
-      <hr>
+        <footer>
+          <p>&copy; Spaghetti Open Data </p>
+        </footer>
 
-      <footer>
-        <p>&copy; Spaghetti Open Data </p>
-      </footer>
+      </div><!--/.fluid-container-->
 
-    </div><!--/.fluid-container-->
+      <!-- Le javascript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+     <script src="http://code.jquery.com/jquery-latest.js"></script>
+     <script src="/bootstrap/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+     <script type="text/javascript" src="/javascripts/application.js"></script>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-   <script src="http://code.jquery.com/jquery-latest.js"></script>
-   <script src="bootstrap/js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
-  </body>
-</html>
+    </body>
+  </html>

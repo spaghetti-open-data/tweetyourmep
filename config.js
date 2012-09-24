@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var config = {
   db_host: 'localhost',
   db_name: 'TEST',
-  db_collection: 'MEPS-TEST3',
+  db_collection: 'MEPS-TEST6',
   db_debug: 1,
   api_url: 'http://www.epnewshub.eu/feederfrontendapi/contributors/1?limit=8000&offset=0',
   app_title:       'TweetYourMEP',
@@ -20,6 +20,7 @@ var config = {
     mep_faction : String,
     mep_firstName : String,
     mep_lastName : String,
+    mep_fullName : String,
     mep_localParty : String,
     mep_personalWebsite : String,
     mep_twitterUrl : String,
