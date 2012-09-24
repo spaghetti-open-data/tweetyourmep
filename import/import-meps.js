@@ -73,6 +73,10 @@ db.once('open', function() {
         }
       }
     }
+    
+    // create a fullname field to make search operation easy
+    mep.mep_fullName = mep.mep_firstName + ' ' + mep.mep_lastName;
+
     mep.save(function(err, type) {
       if (err) {
         console.error('Saving user problem.');
