@@ -89,14 +89,23 @@
                   <label class="control-label">Country</label>
                   <div class="controls">
                     <select class="input-medium" name="mep_country" id="mep_country">
+                      <option value=""> - Select country - </option>
+                      <%
+                        var countries = config.countries; 
+                        for (var key in countries) { %>
+                          <option value="<%= key %>"> <%= countries[key] %> </option>
+                      <% } %>
+                      <!--
                       <option>Italy</option>
                       <option>France</option>
                       <option>Germany</option>
+                    -->
                     </select>
                   </div>
                 </div>
+                <!--
                 <div class="control-group">
-                  <!-- Select Basic -->
+                  <!-- Select Basic 
                   <label class="control-label">Party</label>
                   <div class="controls">
                     <select class="input-medium" name="mep_party">
@@ -106,6 +115,7 @@
                     </select>
                   </div>
                 </div>
+                -->
                 <div class="control-group">
                     <label class="control-label"></label>
                     <!-- Button -->
