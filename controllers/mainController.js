@@ -23,7 +23,6 @@ module.exports = function() {
         });
       }
       else {
-        console.log(req.query);
         // @todo check if we can stream the data after the page render, here we hang the page loading!
         meps = model.getMeps(options, function(meps) {
           res.render('index', { config: config, meps: meps, req: req});
