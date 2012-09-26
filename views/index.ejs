@@ -91,9 +91,9 @@
                     <select class="input-medium" name="mep_country" id="mep_country">
                       <option value=""> - Select country - </option>
                       <%
-                        var countries = config.countries; 
+                        var countries = config.countries;
                         for (var key in countries) { %>
-                          <option value="<%= key %>"> <%= countries[key] %> </option>
+                          <option value="<%= key %>" <%= (key === req.query.mep_country) ? "selected=\"selected\"" : '' %> > <%= countries[key] %> </option>
                       <% } %>
                       <!--
                       <option>Italy</option>

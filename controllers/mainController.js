@@ -7,24 +7,19 @@ module.exports = function() {
   var self = {
     
    indexAction : function (req,res) {
-	
-	// paraemtri letti dalla request. Se non sono presenti uso il default!
-	var limit = (req.query.limit) ? req.query.limit : 800;
-	var offset = (req.query.offset) ? req.query.offset : 0;
+	   // paraemtri letti dalla request. Se non sono presenti uso il default!
+	   var limit = (req.query.limit) ? req.query.limit : 800;
+	   var offset = (req.query.offset) ? req.query.offset : 0;
 	   
       // @todo move this to general options ?
       options = { 
         // @todo hardcoded number just for test, this needs to be refactored to support pagination
         'limit': limit,
-	'offset': offset,
+	      'offset': offset,
         'sort_attrib': 'mep_lastName',
         'sort_type': 'asc'
       };
 
-      
-      
-      
-      
       // @todo handle get parameters
       // @todo just use the name to make a test
       /* ricerca modificata
@@ -36,18 +31,21 @@ module.exports = function() {
       }
       */
       if (req.query.mep_name || req.query.mep_country) {
-	 
-console.log("-------------------------------------------------------")
-console.log(req.query)
-console.log("-------------------------------------------------------")	      
-	      
+	
+        if (config.app_debug){
+          console.log("-------------------------------------------------------")
+          console.log(req.query)
+          console.log("-------------------------------------------------------")          
+        } 
+        
+        // get request parameters
         name = req.query.mep_name;
-	country = req.query.mep_country;
-	// TODO: sostituire i parametri con un oggetto options modificato solo sui valori interessati
+	      country = req.query.mep_country;
+
+	      // TODO: sostituire i parametri con un oggetto options modificato solo sui valori interessati
         meps = model.findByCriteria(name, country, 800, 0, function(meps) {
           res.render('index', { config: config, meps: meps, req: req});
         });
-	
       }
       else {
         // @todo check if we can stream the data after the page render, here we hang the page loading!
@@ -55,7 +53,6 @@ console.log("-------------------------------------------------------")
           res.render('index', { config: config, meps: meps, req: req});
         });
       }
-
     },
     aboutAction: function (req, res) {
       res.render('about', {config: config});
