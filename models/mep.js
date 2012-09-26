@@ -33,6 +33,7 @@ var mepModel = function() {
 
   // fetch mep records
   this.getMeps = function(options, callback) {
+	  
     var Mongo = this.getModel();
 
     // sort (http://stackoverflow.com/questions/11043026/variable-as-the-property-name-in-a-javascript-object-literal)
@@ -76,8 +77,22 @@ var mepModel = function() {
     */  
   };
   
+  /* ricerca in base a criteri multipli .
+   * TODO: sostituire i parametri con un oggetto options modificato solo nei campi interessati...
+   */
+  this.findByCriteria = function(name, country, limit, offset, callback) {
+   
+    var op = {
+	    mep_fullName:  { $regex: name, $options: 'i' }, 
+	    mep_country:  { $regex: country, $options: 'i', $ne : "" },
+	    mep_twitterUrl: {$ne : ""}
+    };
+    this.search(op, callback);
+  };
+  
   this.findByCountry = function(iso2) {
-    var op = {mep_country:  { $regex: iso2, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
+    var op = {mep_country:  iso2, mep_twitterUrl: {$ne : ""}};
+    //var op = {mep_country:  { $regex: iso2, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
     this.search(op, callback);
   };
 

@@ -1,5 +1,6 @@
 # installazione delle dipendenze
 npm install express
+npm install ejs
 npm install mongoose
 npm install mongodb --mongodb:native
 npm install stylus
