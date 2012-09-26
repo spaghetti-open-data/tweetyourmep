@@ -179,10 +179,14 @@
                             <% var array = eval (meps[i].mep_additionalProperties);
                             for (var l = 0; l < array.length; l++) {
 								var object = array[l];
-								for (var property in object){%>
+								for (var property in object){
+									if(property=="flickrURL"){}
+									if(property=="additionalSite1"){}
+									else{ %>
 									<dt><%= property %></dt> <dd><%= object[property] %></dd>
                             <% 		}
 								}
+							}
                              %>" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
                             </span>
 
