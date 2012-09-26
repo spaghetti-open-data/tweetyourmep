@@ -175,7 +175,7 @@
                               <i class="icon-zoom-in"></i>
                               <a href="#" rel="popover" data-placement="bottom" data-content="<dl>
                               <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
-                            </dl>
+                            
                             <% var array = eval (meps[i].mep_additionalProperties);
                             for (var l = 0; l < array.length; l++) {
 								var object = array[l];
@@ -187,7 +187,7 @@
                             <% 		}
 								}
 							}
-                             %>" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
+                             %> </dl>" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
                             </span>
 
                             <p class="lead">
