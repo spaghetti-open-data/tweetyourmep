@@ -9,6 +9,8 @@ var config = {
   app_title:       'TweetYourMEP',
   app_description: '',
   app_author:      'SOD Collaborative hacking',
+  app_port: 3000,
+  app_secret: 'nirfnpv82958vj495vasdHGDASfaf293n9vfv',
   app_debug: false,
     // Define Mep model
   schema: new mongoose.Schema({
