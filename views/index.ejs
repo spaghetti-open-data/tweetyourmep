@@ -127,7 +127,7 @@
             </form>
           </li>
         </ul>
-      </div>  
+      </div>        
     </div> <!--/sidebar -->
 
           <div class="span9">  
@@ -150,6 +150,8 @@
                             </dl>
                           </div>
                         -->
+
+
                         <div class="caption">
                            <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
                            <span class="mep-info">
@@ -171,7 +173,17 @@
                             <span class="divider">/</span>
                             <span class="mep-info">
                               <i class="icon-zoom-in"></i>
-                              <a href="#" rel="popover" data-placement="bottom" data-content="And here's some amazing content. It's very engaging. right?" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
+                              <a href="#" rel="popover" data-placement="bottom" data-content="<dl>
+                              <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
+                            </dl>
+                            <% var array = eval (meps[i].mep_additionalProperties);
+                            for (var l = 0; l < array.length; l++) {
+								var object = array[l];
+								for (var property in object){%>
+									<dt><%= property %></dt> <dd><%= object[property] %></dd>
+                            <% 		}
+								}
+                             %>" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
                             </span>
 
                             <p class="lead">
