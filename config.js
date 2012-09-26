@@ -9,6 +9,7 @@ var config = {
   app_title:       'TweetYourMEP',
   app_description: '',
   app_author:      'SOD Collaborative hacking',
+  app_debug: false,
     // Define Mep model
   schema: new mongoose.Schema({
     mep_country : String,
