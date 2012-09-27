@@ -2,15 +2,15 @@
 var mongoose = require('mongoose');
 var config = {
   db_host: 'localhost',
-  db_name: 'TEST',
-  db_collection: 'MEPS-TEST7',
+  db_name: 'twmep_dev',
+  db_collection: 'twmep_dev_collection',
   db_debug: 1,
   api_url: 'http://www.epnewshub.eu/feederfrontendapi/contributors/1?limit=8000&offset=0',
   app_title:       'TweetYourMEP',
   app_description: '',
   app_author:      'SOD Collaborative hacking',
   app_port: 3000,
-  app_secret: 'nirfnpv82958vj495vasdHGDASfaf293n9vfv',
+  app_secret: 'some_random_strings',
   app_debug: false,
   base_path: '/',
     // Define Mep model
