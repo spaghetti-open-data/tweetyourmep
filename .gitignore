@@ -16,3 +16,4 @@ npm-debug.log
 cache/*
 import/cache/*
 import/cache
+config.js
