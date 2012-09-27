@@ -67,17 +67,40 @@ db.once('open', function() {
     }
   }).pipe(fs.createWriteStream('./cache/mep-cache-dump-' + new Date().getTime()));
   
+  function validateURL(value) {
+    return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
+  }
+
   // add additional data, save to mongo
   function doSave(mep) {
     for (attr in mep) {
       if (attr === 'mep_twitterUrl') {
         var tw_url = mep[attr];
         if (tw_url) {
-          //var username = php.array_pop(php.explode('/', tw_url));
-	  var username = tw_url.split('/').pop();
+	        var username = tw_url.split('/').pop();
           mep.mep_twitterUserName = username;
         }
       }
+      /* Disabled, we should check the privacy stuff in order to download locally photos 
+         This is an async call, we should find a better method to close the process when download is finished.
+      */
+      /*
+      if (attr == 'mep_epFotoUrl') {
+        // download photo locally
+        var remote_photo = mep[attr];
+        if (remote_photo && validateURL(remote_photo)) {
+          var photo_name = remote_photo.split('/').pop();
+
+          request(remote_photo, function (error, response, body) {
+            console.log('Downloading photo: ' + remote_photo);
+            fs.writeFile('./images/' + photo_name, body);
+          });
+
+          //request(remote_photo).pipe(fs.createWriteStream('./images/' + photo_name));
+          mep.local_image = photo_name;
+        }
+      }
+      */
     }
     
     // create a fullname field to make search operation easy
