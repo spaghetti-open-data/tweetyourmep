@@ -8,7 +8,7 @@
       <meta name="author" content="">
 
       <!-- Le styles -->
-      <link href="bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
+      <link href="<%= config.base_path %>bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
       <style type="text/css">
         body {
           padding-top: 60px;
@@ -21,7 +21,7 @@
           color: #0094C2;
         }
       </style>
-      <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <link href="<%= config.base_path %>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
       <!--[if lt IE 9]>
@@ -177,15 +177,15 @@
                             
                             <% var array = eval (meps[i].mep_additionalProperties);
                             for (var l = 0; l < array.length; l++) {
-								var object = array[l];
-								for (var property in object){
-									if(property=="flickrURL"){}
-									else if(property=="additionalSite1"){}
-									else{ %>
-									<dt><%= property %></dt> <dd><%= object[property] %></dd>
-                            <% 		}
-								}
-							}
+                								var object = array[l];
+                								for (var property in object){
+                									if(property=="flickrURL"){}
+                									else if(property=="additionalSite1"){}
+                									else{ %>
+                									<dt><%= property %></dt> <dd><%= object[property] %></dd>
+                                            <% 		}
+                								}
+                							}
                              %>
                              <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
                              </dl>" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>">More</a>
@@ -227,7 +227,7 @@
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
      <script src="http://code.jquery.com/jquery-latest.js"></script>
-     <script src="/bootstrap/js/bootstrap.min.js"></script>
+     <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
      <script type="text/javascript" src="/javascripts/application.js"></script>
 
