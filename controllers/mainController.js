@@ -43,7 +43,7 @@ module.exports = function() {
 	      country = req.query.mep_country;
 
 	      // TODO: sostituire i parametri con un oggetto options modificato solo sui valori interessati
-        meps = model.findByCriteria(name, country, 800, 0, function(meps) {
+        meps = model.findByCriteria(name, country, 800, 0, options, function(meps) {
           res.render('index', { config: config, meps: meps, req: req});
         });
       }
