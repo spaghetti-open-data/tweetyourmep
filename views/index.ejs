@@ -140,7 +140,7 @@
                 <% } %>
                       <li class="span3">
                        <div class="thumbnail">
-                         <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" />
+                         <img data-original="<%= meps[i].mep_epFotoUrl %>" src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded lazy" />
                         <!--
                          <div style="float:left; width:90px; max-height:215px;"
                             <dl>
@@ -228,8 +228,9 @@
       <!-- Placed at the end of the document so the pages load faster -->
      <script src="http://code.jquery.com/jquery-latest.js"></script>
      <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
-     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
      <script type="text/javascript" src="/javascripts/application.js"></script>
+     <script type="text/javascript" src="/javascripts/jquery.lazyload.min.js"></script>
 
 
     </body>
