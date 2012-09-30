@@ -4,8 +4,8 @@
       <meta charset="utf-8">
       <title><%= config.app_title %></title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="">
-      <meta name="author" content="">
+      <meta name="description" content="<%= config.app_description %>">
+      <!-- <meta name="author" content="https://github.com/spaghetti-open-data/tweetyourmep/graphs/contributors"> -->
 
       <!-- Le styles -->
       <link href="<%= config.base_path %>bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
@@ -35,6 +35,18 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
       -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-35090580-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
     </head>
 
     <body>
@@ -55,8 +67,8 @@
               </p>
               -->
               <ul class="nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+                <li class="active"><a href="<%= config.base_path %>">Home</a></li>
+                <li><a href="<%= config.base_path %>about">About</a></li>
                 <!-- <li><a href="#contact">Contact</a></li> -->
               </ul>
             </div><!--/.nav-collapse -->
@@ -127,7 +139,11 @@
             </form>
           </li>
         </ul>
-      </div>        
+      </div> 
+
+      <!-- privacy policy button -->
+      <a href="http://www.iubenda.com/privacy-policy/324506" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>       
+
     </div> <!--/sidebar -->
 
           <div class="span9">  
@@ -156,7 +172,7 @@
                            <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
                            <span class="mep-info">
                               <i class="icon-globe"></i>
-                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
+                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
                                 <%= meps[i].mep_country %>
                               </a>
                             </span>
@@ -165,7 +181,7 @@
 
                             <span class="mep-info">
                               <i class="icon-home"></i>
-                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
+                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
                                 <%= meps[i].mep_faction %>
                               </a>
                             </span>
@@ -173,7 +189,7 @@
                             <span class="divider">/</span>
                             <span class="mep-info">
                               <i class="icon-zoom-in"></i>
-                              <a href="#" rel="popover" data-placement="bottom" data-content="<dl>
+                              <a href="javascript:void(0)" rel="popover" data-placement="bottom" data-content="<dl>
                             
                             <% var array = eval (meps[i].mep_additionalProperties);
                             for (var l = 0; l < array.length; l++) {
@@ -220,17 +236,15 @@
         <footer>
           <p>&copy; Spaghetti Open Data </p>
         </footer>
-
       </div><!--/.fluid-container-->
 
       <!-- Le javascript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
      <script src="http://code.jquery.com/jquery-latest.js"></script>
-     <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-     <script type="text/javascript" src="/javascripts/application.js"></script>
-
+     <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="<%= config.base_path %>javascripts/application.js"></script>
 
     </body>
   </html>
