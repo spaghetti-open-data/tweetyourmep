@@ -42,7 +42,6 @@ module.exports = function() {
         name = req.query.mep_name;
 	      country = req.query.mep_country;
         faction = req.query.mep_faction;
-        console.log(faction);
 
 	      // TODO: sostituire i parametri con un oggetto options modificato solo sui valori interessati
         meps = model.findByCriteria(name, country, faction, 800, 0, options, function(meps) {
@@ -58,6 +57,9 @@ module.exports = function() {
     },
     aboutAction: function (req, res) {
       res.render('about', {config: config});
+    },
+    italianoAction: function (req, res) {
+      res.render('italiano', {config: config});
     },
     importerAction: function (req, res) {
       //res.render('importer', config);
