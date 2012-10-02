@@ -87,10 +87,11 @@ var mepModel = function() {
   /* ricerca in base a criteri multipli .
    * TODO: sostituire i parametri con un oggetto options modificato solo nei campi interessati...
    */
-  this.findByCriteria = function(name, country, limit, offset, options, callback) {
+  this.findByCriteria = function(name, country, faction, limit, offset, options, callback) {
     var op = {
 	    mep_fullName:  { $regex: name, $options: 'i' }, 
-	    mep_country:  country,
+      mep_country:  { $regex: country, $options: 'i' }, // NOTA: per ora lasciamo l'uso di regex così da contemplare il caso di no-country... poi va trovata una soluzione più elegante
+      mep_faction: { $regex: faction, $options: 'i' },
 	    mep_twitterUrl: {$ne : ""}
     };
     this.search(op, options, callback);

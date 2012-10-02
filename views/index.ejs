@@ -104,19 +104,20 @@
                     </select>
                   </div>
                 </div>
-                <!--
-                <div class="control-group">
-                  <!-- Select Basic 
-                  <label class="control-label">Party</label>
+                  <div class="control-group">
+                  <label class="control-label">Faction</label>
                   <div class="controls">
-                    <select class="input-medium" name="mep_party">
-                      <option>PP</option>
-                      <option>CC</option>
-                      <option>DD</option>
+                    <select class="input-medium" name="mep_faction">
+                     <option value=""> - Select Faction - </option>
+                      <%
+                        var faction = config.factionNames;
+                        for (var key in faction) { %>
+                          <option value="<%= key %>" <%= (key === req.query.mep_faction) ? "selected=\"selected\"" : '' %> > <%= faction[key] %> </option>
+                      <% } %>
                     </select>
                   </div>
                 </div>
-                -->
+               
                 <div class="control-group">
                     <label class="control-label"></label>
                     <!-- Button -->
