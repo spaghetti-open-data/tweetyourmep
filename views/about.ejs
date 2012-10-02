@@ -2,10 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title><%= config.app_title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <title>About - <%= config.app_title %></title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="<%= config.app_description %>">
 
     <!-- Le styles -->
     <link href="bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
@@ -32,6 +31,18 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
     -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35090580-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
   </head>
 
   <body>
@@ -44,7 +55,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><%= config.app_title %></a>
+          <a class="brand" href="<%= config.base_path %>"><%= config.app_title %></a>
           <div class="nav-collapse collapse">
             <!--
             <p class="navbar-text pull-right">
@@ -52,8 +63,8 @@
             </p>
             -->
             <ul class="nav">
-              <li><a href="/">Home</a></li>
-              <li class="active"><a href="#about">About</a></li>
+              <li><a href="<%= config.base_path %>">Home</a></li>
+              <li class="active"><a href="<%= config.base_path %>about">About</a></li>
               <!-- <li><a href="#contact">Contact</a></li> -->
             </ul>
           </div><!--/.nav-collapse -->
@@ -72,7 +83,7 @@
             <!-- <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
           </div>
         </div><!--/span-->
-<p>TweetyourMEP is a free and open source project proudly brought to you by <strong>Spaghetti Open Data</strong>, an informal group of mostly Italian citizens who care about open data and free information. Everyone is welcome to get involved! Join our <a href="https://groups.google.com/d/forum/spaghettiopendata">mailing list</a> (in Italian, mostly);  reuse or improve our code (<a href="https://github.com/spaghetti-open-data/tweetyourmep!">Github</a>).</p>
+<p>TweetyourMEP is a free and open source project proudly brought to you by <strong>Spaghetti Open Data</strong>, an informal group of mostly Italian citizens who care about open data and free information. Everyone is welcome to get involved! Join our <a href="https://groups.google.com/d/forum/spaghettiopendata">mailing list</a> (in Italian, mostly);  reuse or improve our code (<a href="https://github.com/spaghetti-open-data/tweetyourmep">Github</a>).</p>
 
 <p>Twitter handles, avatars and tweets of MEPs © European Union – Source: European Parliament. The code on GitHub is licensed under an <a href="http://www.gnu.org/licenses/agpl-3.0.html">Affero General Public License version 3</a>. </p>
       </div><!--/row-->
@@ -80,7 +91,10 @@
       <hr>
 
       <footer>
-        <p><strong>Thanks</strong>: Paolo (<a href="https://twitter.com/paolomainardi">@paolomainardi</a>), Alessio (<a href="https://twitter.com/dottorblaster">@dottorblaster</a>), Alfredo (<a href="https://twitter.com/seralf">@seralf</a>), Luca (<a href="https://twitter.com/lucacorsato">@lucacorsato</a>), Morena (<a href="https://twitter.com/morenaragone">@morenaragone</a>), Alberto (<a href="https://twitter.com/alberto_cottica">@alberto_cottica</a>) and all the fine folks on Spaghetti Open Data.</p>
+        <p><strong>Thanks</strong>: Paolo (<a href="https://twitter.com/paolomainardi">@paolomainardi</a>), Alessio (<a href="https://twitter.com/dottorblaster">@dottorblaster</a>), Alfredo (<a href="https://twitter.com/seralf">@seralf</a>), Luca (<a href="https://twitter.com/lucacorsato">@lucacorsato</a>), Morena (<a href="https://twitter.com/morenaragone">@morenaragone</a>), Silvio (<a href="https://twitter.com/peguaIT">@peguaIT</a>, Alberto (<a href="https://twitter.com/alberto_cottica">@alberto_cottica</a>) and all the fine folks on Spaghetti Open Data.</p>
+        
+        <a href="http://www.iubenda.com/privacy-policy/324506" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+
       </footer>
 
     </div><!--/.fluid-container-->
