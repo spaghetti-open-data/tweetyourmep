@@ -18,14 +18,5 @@
        effect : "fadeIn",
        threshold : 500
     });  
-
-    $("#mep_country").select2({
-      placeholder: "Select a State",
-      allowClear: true
-    });
-    $("#mep_faction").select2({
-      placeholder: "Select a Faction",
-      allowClear: true
-    });
   })
 }(window.jQuery)
