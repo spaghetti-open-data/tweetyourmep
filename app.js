@@ -37,6 +37,8 @@ app.configure('development', function(){
 
 app.get('/', controllers.mainController().indexAction);
 app.get('/about', controllers.mainController().aboutAction);
+app.get('/italiano', controllers.mainController().italianoAction);
+
 
 // disabled at this stage
 //app.get('/users', user.list);

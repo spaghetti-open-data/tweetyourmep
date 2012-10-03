@@ -30,7 +30,7 @@ module.exports = function() {
         });
       }
       */
-      if (req.query.mep_name || req.query.mep_country) {
+      if (req.query.mep_name || req.query.mep_country || req.query.mep_faction) {
 	
         if (config.app_debug){
           console.log("-------------------------------------------------------")
@@ -41,9 +41,10 @@ module.exports = function() {
         // get request parameters
         name = req.query.mep_name;
 	      country = req.query.mep_country;
+        faction = req.query.mep_faction;
 
 	      // TODO: sostituire i parametri con un oggetto options modificato solo sui valori interessati
-        meps = model.findByCriteria(name, country, 800, 0, function(meps) {
+        meps = model.findByCriteria(name, country, faction, 800, 0, options, function(meps) {
           res.render('index', { config: config, meps: meps, req: req});
         });
       }
@@ -56,6 +57,9 @@ module.exports = function() {
     },
     aboutAction: function (req, res) {
       res.render('about', {config: config});
+    },
+    italianoAction: function (req, res) {
+      res.render('italiano', {config: config});
     },
     importerAction: function (req, res) {
       //res.render('importer', config);
