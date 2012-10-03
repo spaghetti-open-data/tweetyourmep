@@ -24,6 +24,7 @@ var mepModel = function() {
   // Define Mep model
   var mepSchema = config.schema;
 
+  // connect to db
   this.getModel = function() {
     // @todo handle errors
     var db = mongoose.createConnection(config.db_host, config.db_name);
@@ -32,6 +33,7 @@ var mepModel = function() {
   }
 
   // fetch mep records
+  // @todo Join this function using the global search method 
   this.getMeps = function(options, callback) {
 	  
     var Mongo = this.getModel();
@@ -54,9 +56,14 @@ var mepModel = function() {
     });
   }
 
-  this.search = function(op, callback) {
+  /* Execute search */
+  this.search = function(op, options, callback) {
+    var sort = {};
+    sort[options.sort_attrib] = options.sort_type;
+
     var Mongo = this.getModel();
-    var q = Mongo.find(op);
+    var q = Mongo.find(op).sort(sort);
+
     q.execFind(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
@@ -80,30 +87,14 @@ var mepModel = function() {
   /* ricerca in base a criteri multipli .
    * TODO: sostituire i parametri con un oggetto options modificato solo nei campi interessati...
    */
-  this.findByCriteria = function(name, country, limit, offset, callback) {
-   
+  this.findByCriteria = function(name, country, faction, limit, offset, options, callback) {
     var op = {
 	    mep_fullName:  { $regex: name, $options: 'i' }, 
-	    mep_country:  { $regex: country, $options: 'i', $ne : "" },
+      mep_country:  { $regex: country, $options: 'i' }, // NOTA: per ora lasciamo l'uso di regex così da contemplare il caso di no-country... poi va trovata una soluzione più elegante
+      mep_faction: { $regex: faction, $options: 'i' },
 	    mep_twitterUrl: {$ne : ""}
     };
-    this.search(op, callback);
-  };
-  
-  this.findByCountry = function(iso2) {
-    var op = {mep_country:  iso2, mep_twitterUrl: {$ne : ""}};
-    //var op = {mep_country:  { $regex: iso2, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
-    this.search(op, callback);
-  };
-
-  this.findByName = function(name, callback) {
-    var op = {mep_fullName:  { $regex: name, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
-    this.search(op, callback);
-  };
-
-  this.findByParty = function (party) {
-    var op = {mep_localParty:  { $regex: party, $options: 'i' }, mep_twitterUrl: {$ne : ""}};
-    this.search(op, callback);  
+    this.search(op, options, callback);
   };
 }
 

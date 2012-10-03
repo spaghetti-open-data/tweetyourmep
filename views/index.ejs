@@ -4,24 +4,13 @@
       <meta charset="utf-8">
       <title><%= config.app_title %></title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="">
-      <meta name="author" content="">
+      <meta name="description" content="<%= config.app_description %>">
+      <!-- <meta name="author" content="https://github.com/spaghetti-open-data/tweetyourmep/graphs/contributors"> -->
 
       <!-- Le styles -->
       <link href="<%= config.base_path %>bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
-      <style type="text/css">
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
-        .sidebar-nav {
-          padding: 9px 0;
-        }
-        a.twitter {
-          color: #0094C2;
-        }
-      </style>
       <link href="<%= config.base_path %>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <link href="<%= config.base_path %>stylesheets/application.css" rel="stylesheet">
 
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
       <!--[if lt IE 9]>
@@ -35,6 +24,18 @@
       <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
       <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
       -->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-35090580-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
     </head>
 
     <body>
@@ -47,7 +48,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/"><%= config.app_title %></a>
+            <a class="brand" href="<%= config.base_path %>"><%= config.app_title %></a>
             <div class="nav-collapse collapse">
               <!--
               <p class="navbar-text pull-right">
@@ -55,8 +56,9 @@
               </p>
               -->
               <ul class="nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
+                <li class="active"><a href="<%= config.base_path %>">Home</a></li>
+                <li><a href="<%= config.base_path %>about">About</a></li>
+				<li><a href="<%= config.base_path %>italiano">Italiano</a></li>
                 <!-- <li><a href="#contact">Contact</a></li> -->
               </ul>
             </div><!--/.nav-collapse -->
@@ -103,19 +105,20 @@
                     </select>
                   </div>
                 </div>
-                <!--
-                <div class="control-group">
-                  <!-- Select Basic 
-                  <label class="control-label">Party</label>
+                  <div class="control-group">
+                  <label class="control-label">Faction</label>
                   <div class="controls">
-                    <select class="input-medium" name="mep_party">
-                      <option>PP</option>
-                      <option>CC</option>
-                      <option>DD</option>
+                    <select class="input-medium" name="mep_faction" id="mep_faction">
+                     <option value=""> - Select Faction - </option>
+                      <%
+                        var faction = config.factionNames;
+                        for (var key in faction) { %>
+                          <option value="<%= key %>" <%= (key === req.query.mep_faction) ? "selected=\"selected\"" : '' %> > <%= faction[key] %> </option>
+                      <% } %>
                     </select>
                   </div>
                 </div>
-                -->
+               
                 <div class="control-group">
                     <label class="control-label"></label>
                     <!-- Button -->
@@ -127,7 +130,11 @@
             </form>
           </li>
         </ul>
-      </div>        
+      </div> 
+
+      <!-- privacy policy button -->
+      <a href="http://www.iubenda.com/privacy-policy/324506" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>       
+
     </div> <!--/sidebar -->
 
           <div class="span9">  
@@ -140,7 +147,10 @@
                 <% } %>
                       <li class="span3">
                        <div class="thumbnail">
-                         <img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded" />
+
+                         <img data-original="<%= meps[i].mep_epFotoUrl %>" src="<%= config.base_path %>images/grey.gif" class="img-rounded lazy" width="215" />
+                         <noscript><img src="<%= meps[i].mep_epFotoUrl %>" class="img-rounded lazy"></noscript>
+
                         <!--
                          <div style="float:left; width:90px; max-height:215px;"
                             <dl>
@@ -156,7 +166,7 @@
                            <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
                            <span class="mep-info">
                               <i class="icon-globe"></i>
-                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
+                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
                                 <%= meps[i].mep_country %>
                               </a>
                             </span>
@@ -165,7 +175,7 @@
 
                             <span class="mep-info">
                               <i class="icon-home"></i>
-                              <a href="#" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
+                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
                                 <%= meps[i].mep_faction %>
                               </a>
                             </span>
@@ -173,7 +183,7 @@
                             <span class="divider">/</span>
                             <span class="mep-info">
                               <i class="icon-zoom-in"></i>
-                              <a href="#" rel="popover" data-placement="bottom" data-content="<dl>
+                              <a href="javascript:void(0)" rel="popover" data-placement="bottom" data-content="<dl>
                             
                             <% var array = eval (meps[i].mep_additionalProperties);
                             for (var l = 0; l < array.length; l++) {
@@ -220,17 +230,16 @@
         <footer>
           <p>&copy; Spaghetti Open Data </p>
         </footer>
-
       </div><!--/.fluid-container-->
 
       <!-- Le javascript
       ================================================== -->
       <!-- Placed at the end of the document so the pages load faster -->
      <script src="http://code.jquery.com/jquery-latest.js"></script>
-     <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
-     <script type="text/javascript" src="/javascripts/application.js"></script>
-
+     <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="<%= config.base_path %>javascripts/jquery.lazyload.min.js"></script>
+     <script type="text/javascript" src="<%= config.base_path %>javascripts/application.js"></script>
 
     </body>
   </html>
