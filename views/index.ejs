@@ -85,6 +85,16 @@
                     <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query" value="<%= (req.query.mep_name ? req.query.mep_name : '') %>">
                     <p class="help-block"></p>
                   </div>
+
+                  <!--
+                    Search for faction TODO
+                  -->
+
+                  <div class="controls">
+                    <input type="text" name="mep_localParty" placeholder="MEP Local Party" class="input-medium search-query" value="<%= (req.query.mep_localParty ? req.query.mep_localParty : '') %>">
+                    <p class="help-block"></p>
+                  </div>
+
                 </div>
                 <div class="control-group">
                   <!-- Select Basic -->
@@ -190,6 +200,7 @@
                 								var object = array[l];
                 								for (var property in object){
                 									if(property=="flickrURL"){}
+                                  else if(property=="youtubeURL"){}
                 									else if(property=="additionalSite1"){}
                 									else{ %>
                 									<dt><%= property %></dt> <dd><%= object[property] %></dd>
