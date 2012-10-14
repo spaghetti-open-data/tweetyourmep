@@ -181,7 +181,7 @@
                            <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
                            <span class="mep-info">
                               <i class="icon-globe"></i>
-                              <a href="<%= config.base_path %>?mep_name=&mep_country=<%= meps[i].mep_country %>&mep_faction=" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
+                              <a href="<%= config.base_path %>?mep_localParty=&mep_name=&mep_country=<%= meps[i].mep_country %>&mep_faction=" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
                                 <%= meps[i].mep_country %>
                               </a>
                             </span>
@@ -190,7 +190,7 @@
 
                             <span class="mep-info">
                               <i class="icon-home"></i>
-                              <a href="<%= config.base_path %>?mep_name=&mep_country=&mep_faction=<%= meps[i].mep_faction %>" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
+                              <a href="<%= config.base_path %>?mep_localParty=&mep_name=&mep_country=&mep_faction=<%= meps[i].mep_faction %>" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
                                 <%= meps[i].mep_faction %>
                               </a>
                             </span>
