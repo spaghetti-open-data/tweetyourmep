@@ -8,9 +8,13 @@
     $('body').tooltip({
       selector: "a[rel=tooltip]"
     })
-    $('a[rel=popover]').popover()
+    $('a[rel=popover]').popover({
+       content: function() { 
+          return $(this).prev('div.popover-content').html(); 
+        }
+      })
       .click(function(e) {
-        e.preventDefault()
+        e.preventDefault();
       });
 
     // lazy load images
