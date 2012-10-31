@@ -72,10 +72,9 @@
     <div class="span3">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
-          <h5>
-            <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png">
-            <a href="https://twitter.com/search?q=%23tweetyourmep" target="_blank">Search #tweetyourmep</a>
-          </h5>
+          
+           <a href="https://twitter.com/search?q=%23tweetyourmep" class="btn btn-inverse btn-small" style=" margin-top:5px; margin-bottom:10px;" target="_blank"><i class="icon-white icon-globe"></i> #tweetyourmep on Twitter</a>
+        
           <li>
             <form class="form-vertical">
               <fieldset>
@@ -89,10 +88,6 @@
                     <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query" value="<%= (req.query.mep_name ? req.query.mep_name : '') %>">
                     <p class="help-block"></p>
                   </div>
-
-                  <!--
-                    Search for faction TODO
-                  -->
 
                   <div class="controls">
                     <label class="control-label">Local Party</label>
@@ -141,6 +136,7 @@
                       <button class="btn btn-success">Search</button>
                       <button class="btn btn-inverse" type="reset">Reset</button>
                     </div>
+
                   </div>
               </fieldset>
             </form>
