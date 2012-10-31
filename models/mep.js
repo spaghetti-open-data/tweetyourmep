@@ -63,8 +63,7 @@ var mepModel = function() {
 
     var Mongo = this.getModel();
     var q = Mongo.find(op).sort(sort);
-    console.log(op);
-
+    
     q.execFind(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
