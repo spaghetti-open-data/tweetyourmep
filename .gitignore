@@ -6,6 +6,8 @@ lib-cov
 *.out
 *.pid
 *.gz
+.DS_Store
+
 
 pids
 logs
@@ -17,3 +19,5 @@ cache/*
 import/cache/*
 import/cache
 config.js
+*~
+

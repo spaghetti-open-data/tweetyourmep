@@ -46,7 +46,7 @@ var mepModel = function() {
             .limit(options.limit)
             .sort(sort);
 
-    q.execFind(function(err, mep) {
+    q.exec(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
         console.err('Fatal error, try again.').
@@ -64,7 +64,7 @@ var mepModel = function() {
     var Mongo = this.getModel();
     var q = Mongo.find(op).sort(sort);
 
-    q.execFind(function(err, mep) {
+    q.exec(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
         console.err('Fatal error, try again.').

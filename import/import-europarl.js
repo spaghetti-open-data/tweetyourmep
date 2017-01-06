@@ -1,22 +1,18 @@
 /*
- * 1) installazione moduli utilizzati
- * npm install request
- * npm install mongoose
+ * new import WIP draft
  * 
- * 2) creazione dello schema 'meps'
- *  TODO: ha senso aggiungere la creazione via script?
- * 
- * 3) per la gestione/visualizzazione di mongdb si può installare RockMongo
- * 4) per eseguire lo script (ad esempio via crontab): >> nodejs import-meps.js
- * 
+ * TODO: expand data from other sources
+ * TODO: FIX 
+ *
  */
 
 // app configuration
 var config = require('../config.js');
 var request = require('request');
 var mongoose = require('mongoose');
-//var php = require('phpjs');
-var fs = require('fs')
+var fs = require('fs');
+var xml2js = require('xml2js');
+var parser = new xml2js.Parser();
 
 mongoose.set('debug', config.db_debug)
 var mepCounter = 0;
@@ -27,11 +23,7 @@ fs.exists = fs.exists || require('path').exists;
 fs.existsSync = fs.existsSync || require('path').existsSync;
 
 
-// TODO: iniziamo da qui, poi possiamo usare entrambi gli endpoint delle api
-// TODO: va verificata l'univocità del record da inserire (eventualmente
-// fatto update)
-// TODO: gestire la paginazione: per ora ci sono valori fissi di comodo
-var url_api = config.api_url;
+var url_api = config.api_europarl;
   
 var db = mongoose.createConnection(config.db_host, config.db_name);
 
@@ -53,7 +45,6 @@ db.once('open', function() {
     
   // creiamo il modello dati
   var MepModel = db.model(config.db_collection, mepSchema);
-  //MEP.ensureIndexes(function(e) { /* TODO: serve? */  }); // @todo check this
     
   // create cache dir 
   if (!fs.existsSync('./cache')) {
@@ -61,9 +52,28 @@ db.once('open', function() {
   }
 
   // get the stream and make a cache file, in order to be used by application (offline mode)
-  request(url_api, function (error, response, body) {
+  request(url_api, function (error, response, data) {
     if (!error && response.statusCode == 200) {
-      dispatch(JSON.parse(body))
+      
+		parser.parseString(data, function (err, result) {
+      		var json = JSON.stringify(result);
+      		
+      		//console.log('\n'+ result);
+      		
+      		
+      		//console.log('\nJSON\n' + json);
+			
+			//dispatch(JSON.parse(result));
+			dispatch(json);
+			console.log('Done');
+			
+			console.log(result.length);
+			
+			process.exit(0);
+		});
+      
+
+      
     }
   }).pipe(fs.createWriteStream('./cache/mep-cache-dump-' + new Date().getTime()));
   
@@ -73,6 +83,11 @@ db.once('open', function() {
 
   // add additional data, save to mongo
   function doSave(mep) {
+  
+  	console.log("\n\n");
+  	console.log(mep)
+  
+  
     for (attr in mep) {
       if (attr === 'mep_twitterUrl') {
         var tw_url = mep[attr];
@@ -81,26 +96,7 @@ db.once('open', function() {
           mep.mep_twitterUserName = username;
         }
       }
-      /* Disabled, we should check the privacy stuff in order to download locally photos 
-         This is an async call, we should find a better method to close the process when download is finished.
-      */
-      /*
-      if (attr == 'mep_epFotoUrl') {
-        // download photo locally
-        var remote_photo = mep[attr];
-        if (remote_photo && validateURL(remote_photo)) {
-          var photo_name = remote_photo.split('/').pop();
-
-          request(remote_photo, function (error, response, body) {
-            console.log('Downloading photo: ' + remote_photo);
-            fs.writeFile('./images/' + photo_name, body);
-          });
-
-          //request(remote_photo).pipe(fs.createWriteStream('./images/' + photo_name));
-          mep.local_image = photo_name;
-        }
-      }
-      */
+     
     }
     
     // create a fullname field to make search operation easy
@@ -147,6 +143,10 @@ db.once('open', function() {
   function dispatch(mepsList){
     mepCounter = mepsList.length;
     var len = mepsList.length;
+
+			
+    
+    console.log(">> FOUND: " + len + " record");
 
     for (var i=0; i<len; ++i) {
       var remote_mep = mepsList[i];
