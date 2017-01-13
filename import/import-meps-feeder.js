@@ -1,4 +1,6 @@
 /*
+ * NOTE: FIRST OLD VERSION
+ *
  * 1) installazione moduli utilizzati
  * npm install request
  * npm install mongoose
