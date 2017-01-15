@@ -10,7 +10,11 @@ var fs = require('fs');
 var request = require('request');
 var mongoose = require('mongoose');
 
-mongoose.set('debug', config.db_debug)
+mongoose.set('debug', config.db_debug);
+
+//mongoose.Promise = global.Promise;
+mongoose.Promise = require('bluebird');
+
 var mepCounter = 0;
 
 var mep_file = config.input_json ;
@@ -19,8 +23,6 @@ var mep_file = config.input_json ;
 // connection to mongoDB
 var db = mongoose.createConnection(config.db_host, config.db_name);
 
-// error handling
-db.on('error', console.error.bind(console, 'connection error:'));
 
 // close connection
 db.on('close', function() {
@@ -28,6 +30,23 @@ db.on('close', function() {
   process.exit(1);
 });
 
+// error handling
+db.on('error', console.error.bind(console, 'connection error:'));
+
+// disconnection
+db.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+})
+
+process.on('SIGINT', function() {
+  db.close(function () {
+    console.log('Mongoose default connection disconnected through app termination');
+    process.exit(0);
+  });
+});
+
+
+var promises = [];
 
 // on opening connection
 db.once('open', function() {
@@ -39,69 +58,61 @@ db.once('open', function() {
 
 	// creiamo il modello dati
 	var MepModel = db.model(config.db_collection, mepSchema);
-  
-  
-  	// reading meps details from JSON file
-  	var json_file_content = JSON.parse(fs.readFileSync(mep_file, 'utf8'));
 
-	for(var i in json_file_content) {
-	
-		var mep_doc = model_adapter(json_file_content[i]);
-	
-		console.log("#### MEP ID: " + mep_doc.mep_userId);
-	
-		// save / update
-		
-		MepModel.findOne(
-			{mep_userId: mep_doc.mep_userId}, 
-			function(err, user) {
-			
-				if (err) { 
-					console.error('Find users problems, please check mongodb connection.');
-					process.exit(0);
-				}
-			
-				// new user
-				if (!user) {
-					console.log("adding new user: " + mep_doc.mep_userId);
-					MepSchema = new MepModel(mep_doc);
-					
-					doSave(MepSchema, 'save');
-				}
-							
-				// existing user
-				else {
-					console.log("updating user: " + mep_doc.mep_userId);
-					for (attr in mep_doc) {
-						if (attr != 'mep_userId') {
-							user.attr = mep_doc[attr];
-						}
-					}
-					doSave(user, 'update');
-				}
-				
-		});
-	
-	};
-  
-  
-  console.log("END - imported " + json_file_content.length + " MEPs");
-  //process.exit(1);
-  
+
+  // reading meps details from JSON file
+  var json_file_content = JSON.parse(fs.readFileSync(mep_file, 'utf8'));
+
+  var mep_left = json_file_content.length;
+
+  for(var i in json_file_content) {
+
+    mepCounter +=1 ;
+
+    var mep_doc = model_adapter(json_file_content[i]);
+
+    console.log("#### MEP ID: " + mep_doc.mep_userId);
+
+    // save / update
+
+    //var promise = new Promise(function(resolve, reject){
+    var doc_promise = MepModel.findOneAndUpdate(
+      {mep_userId: mep_doc.mep_userId},
+      mep_doc,
+      { new: true, upsert: true }
+    ).exec()
+    .then(function(doc){
+      console.log("added MEP.id=" + doc.mep_userId);
+    })
+    .catch(function(err){
+      console.log("can't find MEP.id=" + doc.mep_userId);
+    });
+
+    promises.push(doc_promise);
+
+  };
+
+  console.log("\nEND - imported " + json_file_content.length + " MEPs\n");
+
 });
 
 
-function doSave(mep, type){
-	mep.save(function(err, type) {
-		if (err) {
-			console.error('Saving user problem.');
-			process.exit(0);
-		}
-		//console.log(type + " " + mep);
-	});
-}
+// once all docs have been updated...
+Promise
+  .all(promises)
+  .then(function(data) {
+    console.log('all processed)', data);
+    //db.close();
+    //process.exit(0);
+  })
+  .catch(function(error){
+    console.log(error);
+  });
 
 
+/**
+ *
+ */
 function model_adapter(data){
 
 	if(!data) return ; // skip it if bad
@@ -112,7 +123,7 @@ function model_adapter(data){
 	var facebook_user = (data['facebook']) ? data['facebook'].split('/').pop() : undefined;
 
 	var youtube_user = (data['youtube']) ? data['youtube'].split('/').pop() : undefined;
-	
+
 	var json = {
 		mep_userId: data["_id"],
 		mep_fullName: data["name"],
@@ -121,8 +132,8 @@ function model_adapter(data){
 		mep_epFotoUrl: data["img"],
 		mep_birthDate: data["birthDate"],
 		mep_birthPlace: data["birthPlace"],
-		mep_country: data["country"],
-		mep_faction: data["faction"],
+		mep_country: lookupCountryCode(data["country"]),
+		mep_faction: lookupFactionName(data["faction"]),
 		mep_localParty: data["party"],
 		mep_emailAddress: data["email"],
 		mep_epPageUrl: data["url"],
@@ -134,13 +145,27 @@ function model_adapter(data){
 		mep_youtubeUrl: data["youtube"],
 		mep_youtubeUser: youtube_user,
 		mep_rss: data["rss"],
-    	mep_additionalProperties : undefined,
+    mep_additionalProperties : undefined,
 		mep_party: undefined,
 		mep_itemCount : undefined
 	}
-	
+
 	return json ;
 
 }
 
+function lookupFactionName(faction){
+  for(code in config.factionNames){
+    var value = config.factionNames[code];
+    if(value === faction) return code ;
+  }
+  return undefined ;
+}
 
+function lookupCountryCode(country){
+  for(code in config.countries){
+    var value = config.countries[code];
+    if(value === country) return code ;
+  }
+  return undefined ;
+}
