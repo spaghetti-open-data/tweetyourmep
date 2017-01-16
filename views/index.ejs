@@ -10,7 +10,6 @@
       <!-- Le styles -->
       <link href="<%= config.base_path %>bootstrap/css/bootstrap_united.min.css" rel="stylesheet">
       <link href="<%= config.base_path %>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-      <link href="<%= config.base_path %>javascripts/select2/select2.css" rel="stylesheet">
       <link href="<%= config.base_path %>stylesheets/application.css" rel="stylesheet">
 
       <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -73,6 +72,10 @@
     <div class="span3">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
+          <h5>
+            <img src="https://dev.twitter.com/sites/default/files/images_documentation/bird_blue_16.png">
+            <a href="https://twitter.com/search?q=%23tweetyourmep" target="_blank">Search #tweetyourmep</a>
+          </h5>
           <li>
             <form class="form-vertical">
               <fieldset>
@@ -86,6 +89,17 @@
                     <input type="text" name="mep_name" placeholder="MEP Name" class="input-medium search-query" value="<%= (req.query.mep_name ? req.query.mep_name : '') %>">
                     <p class="help-block"></p>
                   </div>
+
+                  <!--
+                    Search for faction TODO
+                  -->
+
+                  <div class="controls">
+                    <label class="control-label">Local Party</label>
+                    <input type="text" name="mep_localParty" placeholder="MEP Local Party" class="input-medium search-query" value="<%= (req.query.mep_localParty ? req.query.mep_localParty : '') %>">
+                    <p class="help-block"></p>
+                  </div>
+
                 </div>
                 <div class="control-group">
                   <!-- Select Basic -->
@@ -124,7 +138,8 @@
                     <label class="control-label"></label>
                     <!-- Button -->
                     <div class="controls">
-                      <button class="btn">Search</button>
+                      <button class="btn btn-success">Search</button>
+                      <button class="btn btn-inverse" type="reset">Reset</button>
                     </div>
                   </div>
               </fieldset>
@@ -141,7 +156,7 @@
           <div class="span9">
               <!-- loop through meps -->
               <% counter = 0 %>
-              <% for(var i = 0; i < meps.length; i++) { %>
+              <% for (var i = 0; i < meps.length; i++) { %>
                 <% if (counter == 0) { %>
                  <div class="row-fluid">
                    <ul class="thumbnails">
@@ -167,7 +182,7 @@
                            <h4> <%= meps[i].mep_fullName %> </h4>
                            <span class="mep-info">
                               <i class="icon-globe"></i>
-                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
+                              <a href="<%= config.base_path %>?mep_localParty=&mep_name=&mep_country=<%= meps[i].mep_country %>&mep_faction=" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
                                 <%= meps[i].mep_country %>
                               </a>
                             </span>
@@ -176,30 +191,26 @@
 
                             <span class="mep-info">
                               <i class="icon-home"></i>
-                              <a href="javascript:void(0)" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
+                              <a href="<%= config.base_path %>?mep_localParty=&mep_name=&mep_country=&mep_faction=<%= meps[i].mep_faction %>" rel="tooltip" data-placement="top" title="<%= config.factionNames[meps[i].mep_faction] %>">
                                 <%= meps[i].mep_faction %>
                               </a>
                             </span>
 
                             <span class="divider">/</span>
+
                             <span class="mep-info">
                               <i class="icon-zoom-in"></i>
-                              <a href="javascript:void(0)" rel="popover" data-placement="bottom" data-content="<dl>
+			      
+			      <div class="popover-content" style="display: none;"> 
+				<%- meps[i].formatted_properties %>
+			     </div>
+			      
+                              <a href="javascript:void(0)" 
+			        rel="popover" 
+			        data-placement="bottom" 
+				data-content="<dl><dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd></dl>" 
+				data-original-title="<%= meps[i].mep_fullName %>">More</a>
 
-                            <% var array = eval (meps[i].mep_additionalProperties);
-                            for (var l = 0; array!=null && l < array.length; l++) {
-                								var object = array[l];
-                								for (var property in object){
-                									if(property=="flickrURL"){}
-                									else if(property=="additionalSite1"){}
-                									else{ %>
-                									<dt><%= property %></dt> <dd><%= object[property] %></dd>
-                                            <% 		}
-                								}
-                							}
-                             %>
-                             <dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd>
-                           </dl>" data-original-title="<%= meps[i].mep_fullName %>">More</a>
                             </span>
 
                             <p class="lead">
@@ -240,7 +251,6 @@
      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
      <script src="<%= config.base_path %>bootstrap/js/bootstrap.min.js"></script>
      <script type="text/javascript" src="<%= config.base_path %>javascripts/jquery.lazyload.min.js"></script>
-     <script type="text/javascript" src="<%= config.base_path %>javascripts/select2/select2.js"></script>
      <script type="text/javascript" src="<%= config.base_path %>javascripts/application.js"></script>
 
     </body>

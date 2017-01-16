@@ -8,6 +8,7 @@
   "dependencies": {
     "ejs": "*",
     "express": "3.0.0rc4",
+    "bluebird": "*",
     "jsonfile": "^2.4.0",
     "mongojs": "*",
     "mongoose": "*",

@@ -8,9 +8,13 @@
     $('body').tooltip({
       selector: "a[rel=tooltip]"
     })
-    $('a[rel=popover]').popover()
+    $('a[rel=popover]').popover({
+       content: function() { 
+          return $(this).prev('div.popover-content').html(); 
+        }
+      })
       .click(function(e) {
-        e.preventDefault()
+        e.preventDefault();
       });
 
     // lazy load images
@@ -18,14 +22,5 @@
        effect : "fadeIn",
        threshold : 500
     });  
-
-    $("#mep_country").select2({
-      placeholder: "Select a State",
-      allowClear: true
-    });
-    $("#mep_faction").select2({
-      placeholder: "Select a Faction",
-      allowClear: true
-    });
   })
 }(window.jQuery)
