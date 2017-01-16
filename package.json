@@ -6,13 +6,15 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "3.0.0rc4",
     "ejs": "*",
-    "stylus": "*",
+    "express": "3.0.0rc4",
+    "bluebird": "*",
+    "jsonfile": "^2.4.0",
     "mongojs": "*",
     "mongoose": "*",
+    "phpjs": "*",
     "request": "*",
-    "phpjs": "*"
+    "stylus": "*"
   },
   "subdomain": "paolomainardi.tweetyourmep",
   "engines": {

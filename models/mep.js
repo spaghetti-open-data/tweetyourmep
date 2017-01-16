@@ -1,19 +1,28 @@
-  /**  
-  "mep_country": "PT",
-    "mep_emailAddress": "ines.zuber@europarl.europa.eu",
-    "mep_epFotoUrl": "http://www.europarl.europa.eu/mepphoto/111589.jpg",
-    "mep_epPageUrl": "",
-    "mep_facebookId": "",
-    "mep_facebookPageUrl": "",
-    "mep_faction": "UL",
-    "mep_firstName": "InÃªs Cristina",
-    "mep_lastName": "Zuber",
-    "mep_localParty": "Partido Comunista PortuguÃªs",
-    "mep_personalWebsite": "",
-    "mep_twitterUrl": "",
-    "mep_userId": "23132",
-    "mep_additionalProperties": "[{\"Member\":\"European Parliament\"},{\"Vice-Chair\":\"Committee on Employment and Social Affairs\"},{\"Substitute\":\"Committee on Industry, Research and Energy\"}]",
-    "mep_itemCount": 0
+ /**  
+
+ESEMPIO:
+
+{
+	"_id": "96728",
+	"birthDate": "1959-05-20",
+	"birthPlace": " Obergünzburg",
+	"country": "Germany",
+	"email": "barbara.lochbihler@europarl.europa.eu",
+	"facebook": "https://www.facebook.com/profile.php?id=100001709936705",
+	"faction": "Group of the Greens/European Free Alliance",
+	"firstName": "Barbara",
+	"img": "http://www.europarl.europa.eu/mepphoto/96728.jpg",
+	"lastName": "Lochbihler",
+	"name": "Barbara LOCHBIHLER",
+	"party": "Bündnis 90/Die Grünen",
+	"rss": "http://www.europarl.europa.eu/rss/mep/barbara.lochbihler/en.xml",
+	"twitter": "https://twitter.com/blochbihler",
+	"url": "http://www.europarl.europa.eu/meps/en/96728/BARBARA_LOCHBIHLER_home.html",
+	"website": "http://www.barbara-lochbihler.de/",
+	"youtube": ""
+}
+
+
   */
 
 var mepModel = function() {
@@ -33,7 +42,7 @@ var mepModel = function() {
   }
 
   // fetch mep records
-  //Â @todo Join this function using the global search method 
+  // @todo Join this function using the global search method 
   this.getMeps = function(options, callback) {
 	  
     var Mongo = this.getModel();
@@ -46,7 +55,7 @@ var mepModel = function() {
             .limit(options.limit)
             .sort(sort);
 
-    q.execFind(function(err, mep) {
+    q.exec(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
         console.err('Fatal error, try again.').
@@ -64,7 +73,7 @@ var mepModel = function() {
     var Mongo = this.getModel();
     var q = Mongo.find(op).sort(sort);
     
-    q.execFind(function(err, mep) {
+    q.exec(function(err, mep) {
       if (err) {
         //@todo we urgently need a robust error handlers
         console.err('Fatal error, try again.').
@@ -91,7 +100,7 @@ var mepModel = function() {
     var op = {
 	    mep_fullName:  { $regex: name, $options: 'i' },
       mep_localParty: { $regex: localParty, $options: 'i' },
-      mep_country:  { $regex: country, $options: 'i' }, // NOTA: per ora lasciamo l'uso di regex cosÃ¬ da contemplare il caso di no-country... poi va trovata una soluzione piÃ¹ elegante
+      mep_country:  { $regex: country, $options: 'i' }, // NOTA: per ora lasciamo l'uso di regex così da contemplare il caso di no-country... poi va trovata una soluzione più elegante
       mep_faction: { $regex: faction, $options: 'i' },
 	    mep_twitterUrl: {$ne : ""}
     };
@@ -101,3 +110,4 @@ var mepModel = function() {
 
 module.exports = new mepModel();
 
+0

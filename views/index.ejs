@@ -17,7 +17,7 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
       <![endif]-->
 
-      <!-- Le fav and touch icons 
+      <!-- Le fav and touch icons
       <link rel="shortcut icon" href="../assets/ico/favicon.ico">
       <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
       <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
@@ -133,7 +133,7 @@
                     </select>
                   </div>
                 </div>
-               
+
                 <div class="control-group">
                     <label class="control-label"></label>
                     <!-- Button -->
@@ -146,19 +146,19 @@
             </form>
           </li>
         </ul>
-      </div> 
+      </div>
 
       <!-- privacy policy button -->
-      <a href="http://www.iubenda.com/privacy-policy/324506" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>       
+      <a href="http://www.iubenda.com/privacy-policy/324506" class="iubenda-white iubenda-embed" title="Privacy Policy">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "http://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
 
     </div> <!--/sidebar -->
 
-          <div class="span9">  
+          <div class="span9">
               <!-- loop through meps -->
               <% counter = 0 %>
               <% for (var i = 0; i < meps.length; i++) { %>
                 <% if (counter == 0) { %>
-                 <div class="row-fluid"> 
+                 <div class="row-fluid">
                    <ul class="thumbnails">
                 <% } %>
                       <li class="span3">
@@ -179,7 +179,7 @@
 
 
                         <div class="caption">
-                           <h4> <%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %> </h4>
+                           <h4> <%= meps[i].mep_fullName %> </h4>
                            <span class="mep-info">
                               <i class="icon-globe"></i>
                               <a href="<%= config.base_path %>?mep_localParty=&mep_name=&mep_country=<%= meps[i].mep_country %>&mep_faction=" rel="tooltip" data-placement="top" title="<%= config.countries[meps[i].mep_country] %>">
@@ -200,10 +200,17 @@
 
                             <span class="mep-info">
                               <i class="icon-zoom-in"></i>
-                              <div class="popover-content" style="display: none;"> 
-                                <%- meps[i].formatted_properties %>
-                              </div>
-                              <a href="javascript:void(0)" rel="popover" data-placement="bottom" data-html="true" data-original-title="<%= meps[i].mep_firstName + ' ' + meps[i].mep_lastName %>"> More </a>
+			      
+			      <div class="popover-content" style="display: none;"> 
+				<%- meps[i].formatted_properties %>
+			     </div>
+			      
+                              <a href="javascript:void(0)" 
+			        rel="popover" 
+			        data-placement="bottom" 
+				data-content="<dl><dt>Local Party</dt> <dd><%= meps[i].mep_localParty %></dd></dl>" 
+				data-original-title="<%= meps[i].mep_fullName %>">More</a>
+
                             </span>
 
                             <p class="lead">
@@ -214,13 +221,13 @@
                            </p>
                        </div>
                        <div class="pagination-centered">
-                         <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary ">Tweet</a> 
+                         <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary ">Tweet</a>
                         <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
                        </div>
                       </div><!--/div-->
                 <% if (counter == 3) { %>
                      </ul>
-                   </div> 
+                   </div>
                    <% counter = 0 %>
                 <% } else  { %>
                   <% counter++; %>

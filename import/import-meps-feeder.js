@@ -1,4 +1,6 @@
 /*
+ * NOTE: FIRST OLD VERSION
+ *
  * 1) installazione moduli utilizzati
  * npm install request
  * npm install mongoose
@@ -7,7 +9,7 @@
  *  TODO: ha senso aggiungere la creazione via script?
  * 
  * 3) per la gestione/visualizzazione di mongdb si può installare RockMongo
- * 4) per eseguire lo script (ad esempio via crontab): >> node import-meps.js
+ * 4) per eseguire lo script (ad esempio via crontab): >> nodejs import-meps.js
  * 
  */
 
@@ -118,7 +120,10 @@ db.once('open', function() {
   // save/update handler
   function saveUpdate(remote_mep) {
     // udpate save the user
-    MepModel.findOne({mep_userId: remote_mep.mep_userId}, function(err, user) {
+	
+	//console.log(remote_mep);
+	
+	MepModel.findOne({mep_userId: remote_mep.mep_userId}, function(err, user) {
       if (err) { 
         console.error('Find users problems, please check mongodb connection.');
         process.exit(0);
