@@ -1,19 +1,28 @@
-  /**  
-  "mep_country": "PT",
-    "mep_emailAddress": "ines.zuber@europarl.europa.eu",
-    "mep_epFotoUrl": "http://www.europarl.europa.eu/mepphoto/111589.jpg",
-    "mep_epPageUrl": "",
-    "mep_facebookId": "",
-    "mep_facebookPageUrl": "",
-    "mep_faction": "UL",
-    "mep_firstName": "Inês Cristina",
-    "mep_lastName": "Zuber",
-    "mep_localParty": "Partido Comunista Português",
-    "mep_personalWebsite": "",
-    "mep_twitterUrl": "",
-    "mep_userId": "23132",
-    "mep_additionalProperties": "[{\"Member\":\"European Parliament\"},{\"Vice-Chair\":\"Committee on Employment and Social Affairs\"},{\"Substitute\":\"Committee on Industry, Research and Energy\"}]",
-    "mep_itemCount": 0
+ /**  
+
+ESEMPIO:
+
+{
+	"_id": "96728",
+	"birthDate": "1959-05-20",
+	"birthPlace": " Obergünzburg",
+	"country": "Germany",
+	"email": "barbara.lochbihler@europarl.europa.eu",
+	"facebook": "https://www.facebook.com/profile.php?id=100001709936705",
+	"faction": "Group of the Greens/European Free Alliance",
+	"firstName": "Barbara",
+	"img": "http://www.europarl.europa.eu/mepphoto/96728.jpg",
+	"lastName": "Lochbihler",
+	"name": "Barbara LOCHBIHLER",
+	"party": "Bündnis 90/Die Grünen",
+	"rss": "http://www.europarl.europa.eu/rss/mep/barbara.lochbihler/en.xml",
+	"twitter": "https://twitter.com/blochbihler",
+	"url": "http://www.europarl.europa.eu/meps/en/96728/BARBARA_LOCHBIHLER_home.html",
+	"website": "http://www.barbara-lochbihler.de/",
+	"youtube": ""
+}
+
+
   */
 
 var mepModel = function() {
