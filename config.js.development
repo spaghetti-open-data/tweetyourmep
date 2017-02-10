@@ -15,6 +15,7 @@ var config = {
   app_port: 3000,
   app_secret: 'some_random_strings',
   app_debug: false,
+  twitter_texts: [ "do you know tyMEP?" ],
   base_path: '/',
     // Define Mep model
   schema: new mongoose.Schema({

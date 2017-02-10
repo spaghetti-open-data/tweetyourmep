@@ -16,6 +16,7 @@ var config = {
   app_secret: 'nirfnpv82958vj495vasdHGDASfaf293n9vfv',
   app_debug: false,
   base_path: '/tweetyourmep/',
+  twitter_texts: [ "do you know tyMEP?" ],
     // Define Mep model
   schema: new mongoose.Schema({
     mep_userId : String,
