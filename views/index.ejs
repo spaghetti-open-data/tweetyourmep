@@ -210,8 +210,15 @@
                            </p>
                        </div>
                        <div class="pagination-centered">
-                         <a href="http://twitter.com/intent/tweet/?text=@<%= meps[i].mep_twitterUserName %>&hashtags=tweetyourmep" class="btn btn-primary ">Tweet</a>
-                        <!-- <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a> -->
+                       <%
+                       	var text = "";
+                       	if(config.twitter_texts)
+	                       	text = config.twitter_texts[0];
+	                    // TODO: add more messages, randimze selection
+	                    text += ' @'+meps[i].mep_twitterUserName;
+                       %>
+                         <a href="http://twitter.com/intent/tweet/?text=<%= text %>&hashtags=tweetyourmep" class="btn btn-primary ">Tweet</a>
+                        <a href="https://twitter.com/intent/user?screen_name=<%= meps[i].mep_twitterUserName %>" class="btn">Follow</a>
                        </div>
                       </div><!--/div-->
                 <% if (counter == 3) { %>
