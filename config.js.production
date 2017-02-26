@@ -16,7 +16,8 @@ var config = {
   app_secret: 'nirfnpv82958vj495vasdHGDASfaf293n9vfv',
   app_debug: false,
   base_path: '/tweetyourmep/',
-  twitter_texts: [ "do you know tyMEP?" ],
+  // The text in the following line targets the Copyright directive. Change it to suit your campaign's goals
+  twitter_texts: [ "please protect fair use by voting against articles 11 and 13 of the Copyright Directive: http://ec.europa.eu/newsroom/dae/document.cfm?doc_id=17200" ],
     // Define Mep model
   schema: new mongoose.Schema({
     mep_userId : String,
