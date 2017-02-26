@@ -15,7 +15,8 @@ var config = {
   app_port: 3000,
   app_secret: 'some_random_strings',
   app_debug: false,
-  twitter_texts: [ "do you know tyMEP?" ],
+  // The text in the following line targets the Copyright directive. Change it to suit your campaign's goals
+  twitter_texts: [ "please protect fair use by voting against articles 11 and 13 of the Copyright Directive: http://ec.europa.eu/newsroom/dae/document.cfm?doc_id=17200" ],
   base_path: '/',
     // Define Mep model
   schema: new mongoose.Schema({
