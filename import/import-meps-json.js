@@ -26,7 +26,7 @@ var db = mongoose.createConnection(config.db_host, config.db_name);
 
 // close connection
 db.on('close', function() {
-  console.log('Thanks! You have correctly import/update ' + mepCounter + ' users.');
+  console.log('Thanks! You have correctly imported/updated ' + mepCounter + ' users.');
   process.exit(1);
 });
 
