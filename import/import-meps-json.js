@@ -64,7 +64,7 @@ db.once('open', function() {
   var json_file_content = JSON.parse(fs.readFileSync(mep_file, 'utf8'));
 
   var mep_left = json_file_content.length;
-
+  var mepCounterLast=0;
   for(var i in json_file_content) {
 
     mepCounter +=1 ;
@@ -83,6 +83,7 @@ db.once('open', function() {
     ).exec()
     .then(function(doc){
       console.log("added MEP.id=" + doc.mep_userId);
+      if (mepCounterLast===mep_left) db.close();
     })
     .catch(function(err){
       console.log("can't find MEP.id=" + doc.mep_userId);
